@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<!-- 
+Jampack
+Author: Hencework
+Contact: contact@hencework.com
+-->
+<html lang="en">
+
+<head>
+    <!-- Meta Tags -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel | View Order</title>
+    <meta name="description"
+        content="A modern CRM Dashboard Template with reusable and flexible components for your SaaS web applications by hencework. Based on Bootstrap." />
+
+    <!-- Favicon -->
+    <!-- <link rel="shortcut icon" href="/dist/img/favicon.png">
+    <link rel="icon" href="favicon.ico" type="image/x-icon"> -->
+
+    <!-- Bootstrap Dropify CSS -->
+    <link href="/vendors/dropify/dist/css/dropify.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- select2 CSS -->
+    <link href="/vendors/select2/dist/css/select2.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Data Table CSS -->
+    <link href="/vendors/datatables.net-bs5/css/dataTables.bootstrap5.min.css" rel="stylesheet" type="text/css" />
+    <link href="/vendors/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css" rel="stylesheet"
+        type="text/css" />
+
+    <!-- CSS -->
+    <link href="/dist/css/style.css" rel="stylesheet" type="text/css">
+    <!-- Toastr  -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet" />
+
+    <style>
+        .dot-approved {
+            margin-left: 10px;
+            height: 13px;
+            width: 13px;
+            background-color: rgb(19, 170, 19);
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .dot-reject {
+            margin-left: 10px;
+            height: 13px;
+            width: 13px;
+            background-color: rgb(224, 59, 37);
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .dot-pending {
+            margin-left: 10px;
+            height: 13px;
+            width: 13px;
+            background-color: #ffc400;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .contact-toolbar-left {
+            display: none;
+        }
+
+        .dropify-wrapper{
+            width: 180px;
+            height: 100px;
+        }
+
+        .order-label-pending {
+            font-size: 16px;
+            background-color: #ffc400;
+            border-radius: 5px;
+            padding: 6px;
+            margin-right: 10px;
+            width: 110px;
+            text-align: center;
+            color: #363636;
+            font-family: monospace;
+        }
+
+        .order-label-approve {
+            font-size: 16px;
+            background-color: rgb(19, 170, 19);
+            border-radius: 5px;
+            padding: 6px;
+            margin-right: 10px;
+            width: 110px;
+            text-align: center;
+            color: #363636;
+            font-family: monospace;
+        }
+
+        .order-label-reject {
+            font-size: 16px;
+            background-color: rgb(226, 69, 48);
+            border-radius: 5px;
+            padding: 6px;
+            margin-right: 10px;
+            width: 110px;
+            text-align: center;
+            color: #363636;
+            font-family: monospace;
+        }
+
+        .order-label-other {
+            font-size: 16px;
+            background-color: rgb(83 145 229);
+            border-radius: 5px;
+            padding: 6px;
+            margin-right: 10px;
+            width: 110px;
+            text-align: center;
+            color: #363636;
+            font-family: monospace;
+        }
+
+        .order-label-cancel {
+            font-size: 16px;
+            background-color: rgb(225 112 64);
+            border-radius: 5px;
+            padding: 6px;
+            margin-right: 10px;
+            width: 110px;
+            text-align: center;
+            color: #363636;
+            font-family: monospace;
+        }
+
+    </style>
+
+</head>
+
+<body style="font-size: 15px;">
+    <!-- Wrapper -->
+    <div class="hk-wrapper" data-layout="vertical" data-layout-style="collapsed" data-menu="light" data-footer="simple"
+        data-hover="active">
+
+        <!-- /Header -->
+        <%- include('includes/header.ejs'); %>
+
+            <!-- Vertical Nav -->
+            <div class="hk-menu">
+                <!-- Brand -->
+                <div class="menu-header">
+                    <span>
+                        <a class="navbar-brand" href="/home">
+                            <img class="brand-img img-fluid" src="/dist/img/icon.png" width="45" height="70" alt="Logo"
+                                style="padding-bottom: 10px; padding-top: 15px;" />
+                            <span
+                                style="font-family: 'Barlow',sans-serif; font-size: 14px; font-weight: bold;padding-left: 10px;">KANDY
+                                PHARMACY</span>
+                        </a>
+
+                        <button class="btn btn-icon btn-rounded btn-flush-dark flush-soft-hover navbar-toggle">
+                            <span class="icon">
+                                <span class="svg-icon fs-5">
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                        class="icon icon-tabler icon-tabler-arrow-bar-to-left" width="24" height="24"
+                                        viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                        <line x1="10" y1="12" x2="20" y2="12"></line>
+                                        <line x1="10" y1="12" x2="14" y2="16"></line>
+                                        <line x1="10" y1="12" x2="14" y2="8"></line>
+                                        <line x1="4" y1="4" x2="4" y2="20"></line>
+                                    </svg>
+                                </span>
+                            </span>
+                        </button>
+                    </span>
+                </div>
+                <!-- /Brand -->
+
+                <!-- /Navbar -->
+                <%- include('includes/navbar.ejs'); %>
+
+            </div>
+            <div id="hk_menu_backdrop" class="hk-menu-backdrop"></div>
+            <!-- /Vertical Nav -->
+
+            <!-- Main Content -->
+            <div class="hk-pg-wrapper pb-0">
+                <div class="container-xxl">
+                    <!-- Page Header -->
+                    <div class="hk-pg-header">
+                        <h1 class="pg-title"> View Order : <%=orderInfo.CustomerOrder.orderCode%>
+                        <div style="float: right;">
+                        <%  
+                            var status = orderInfo.CustomerOrder.order_Status;  
+                            var orderStatus = "order-label-other"              
+                            if(status=="Pending"){
+                                orderStatus="order-label-pending" 
+                            } else if(status=="Approved" || status=="Completed"){
+                                orderStatus="order-label-approve" 
+                            } else if(status=="Rejected" ){
+                                orderStatus="order-label-reject" 
+                            }else if(status=="Cancelled" ){
+                                orderStatus="order-label-cancel" 
+                            }else if(status=="Processed" || status=="Shipped" || status=="Refund"){
+                                orderStatus="order-label-other" 
+                            } 
+                        %>
+                        <label class=<%=orderStatus%>><%=orderInfo.CustomerOrder.order_Status%></label>
+                        <select class="btn btn-md" id="order_status" style="border: 1px solid; margin-top: 5px;">
+                            <option selected disabled value="">Order Status</option>
+                            <option value="Pending" <%=(orderInfo.CustomerOrder.order_Status == "Pending")?"hidden":""%> >Pending</option>
+                            <option value="Approved" <%=(orderInfo.CustomerOrder.order_Status == "Approved")?"hidden":""%> >Approved</option>
+                            <option value="Rejected" <%=(orderInfo.CustomerOrder.order_Status == "Rejected")?"hidden":""%>>Rejected</option>
+                            <option value="Processed" <%=(orderInfo.CustomerOrder.order_Status == "Processed")?"hidden":""%>>Processed</option>
+                            <option value="Shipped" <%=(orderInfo.CustomerOrder.order_Status == "Shipped")?"hidden":""%>>Shipped</option>
+                            <option value="Completed" <%=(orderInfo.CustomerOrder.order_Status == "Completed")?"hidden":""%>>Completed</option>
+                            <option value="Cancelled" <%=(orderInfo.CustomerOrder.order_Status == "Cancelled")?"hidden":""%>>Cancelled</option>
+                            <option value="Refund" <%=(orderInfo.CustomerOrder.order_Status == "Refund")?"hidden":""%>>Refund</option>
+                        </select>
+                        </div>
+                    </h1>
+                    </div>
+                    <!-- /Page Header -->
+
+                    <!-- Page Body -->
+                    <div class="hk-pg-body">
+<!-- 
+                        <div class="row">
+                            <div class="col-md-12 mb-md-4 mb-3">
+                                <div class="card card-border mb-0 h-100">
+                                    <div class="card-body">
+                                        <h4>Customer Details</h4> <span style="float: right;">Customer Code : <%=orderInfo.CustomerDetails.customerCode%></span>
+                                        <div class="col-md-2">
+                                            <div class="d-flex justify-content-md-end">
+                                                <div class="me-3">
+                                                    <div class="mb-1">Name</div>
+                                                    <div class="mb-1">Mobile</div>
+                                                    <div>Email</div>
+                                                </div>
+                                                <div class="text-dark">
+                                                    <div class="mb-1">: <%=orderInfo.CustomerDetails.firstName%> <%=orderInfo.CustomerDetails.lastName%></div>
+                                                    <div class="mb-1">: <%=orderInfo.CustomerDetails.phone%></div>
+                                                    <div class="mb-1">: <%=orderInfo.CustomerDetails.email%></div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+
+
+                        <div class="row">
+                            <div class="col-md-6 mb-md-4 mb-3">
+                                <div class="card card-border mb-0 h-100">
+                                    <div class="card-body">
+                                        <h4>Order Details</h4>
+                                        <div class="col-md-6">
+                                            <div class="d-flex">
+                                                <div class="me-3">
+                                                    <div class="mb-1">Order Code</div>
+                                                    <div class="mb-1">Order Total</div>
+                                                    <div class="mb-1">Payment Method</div>
+                                                    <div>Payment Status</div>
+                                                </div>
+                                                <div class="text-dark">
+                                                    <div class="mb-1">:&nbsp;&nbsp;&nbsp;<%=orderInfo.CustomerOrder.orderCode%></div>
+                                                    <div class="mb-1">:&nbsp;&nbsp;&nbsp;<%=orderInfo.CustomerOrder.total.toLocaleString('en-US', {
+                                                        minimumFractionDigits: 2,
+                                                        maximumFractionDigits: 2 })%></div>
+                                                    <div class="mb-1">:&nbsp;&nbsp;&nbsp;<%=orderInfo.CustomerOrder.paymentMethod%></div>
+                                                    <div class="mb-1">:&nbsp;&nbsp;&nbsp;<%=orderInfo.CustomerOrder.order_PaymentStatus%></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 mb-md-4 mb-3">
+                                <div class="card card-border mb-0 h-100">
+                                    <div class="card-body">
+                                        <h4>Customer Details</h4>
+                                        <div class="col-md-6">
+                                            <div class="d-flex">
+                                                <div class="me-3">
+                                                    <div class="mb-1">Code</div>
+                                                    <div class="mb-1">Name</div>
+                                                    <div class="mb-1">Mobile</div>
+                                                    <div>Email</div>
+                                                </div>
+                                                <div class="text-dark">
+                                                    <div class="mb-1">:&nbsp;&nbsp;&nbsp;<%=orderInfo.CustomerOrder.customerCode%></div>
+                                                    <div class="mb-1">:&nbsp;&nbsp;&nbsp;<%=orderInfo.CustomerDetails.firstName%> <%=orderInfo.CustomerDetails.lastName%></div>
+                                                    <div class="mb-1">:&nbsp;&nbsp;&nbsp;<%=orderInfo.CustomerDetails.phone%></div>
+                                                    <div class="mb-1">:&nbsp;&nbsp;&nbsp;<%=orderInfo.CustomerDetails.email%></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card card-border mb-0 h-100">
+                                    <div class="card-body">
+                                        <h4>Shipping Details</h4>
+                                        <div class="col-md-6">
+                                            <div class="d-flex">
+                                                <div class="me-3">
+                                                    <div class="mb-1">Billing Address</div>
+                                                    <div class="mb-1">Shipping Address</div>
+                                                    <div class="mb-1">Delivery Date</div>
+                                                    <div>Delivery Note</div>
+                                                </div>
+                                                <%
+                                                var deliveryDate = orderInfo.CustomerOrder.deliveryDate.split('GMT')[0].trim();
+                                                %>
+                                                <div class="text-dark">                                                   
+                                                    <div class="mb-1">:&nbsp;&nbsp;&nbsp;<%=orderInfo.CustomerOrder.billingAddress%></div>
+                                                    <div class="mb-1">:&nbsp;&nbsp;&nbsp;<%=orderInfo.CustomerOrder.shippingAddress%></div>
+                                                    <div class="mb-1">:&nbsp;&nbsp;&nbsp;<%=deliveryDate%></div>
+                                                    <div class="mb-1">:&nbsp;&nbsp;&nbsp;<%=orderInfo.CustomerOrder.deliveryNote%></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-content">
+                            <div class="tab-pane fade show active" id="tab_block_1">
+                                <div class="row">
+                                    <div class="col-md-12 mb-md-4 mb-3">
+                                        <div class="card card-border mb-0 h-100">
+                                            <div class="card-body">
+                                                <h4>Order Items</h4>
+                                                <div class="contact-list-view">
+                                                    <table id="datable_1" class="table nowrap w-100 mb-5">
+                                                        <thead>
+                                                            <tr>
+                                                                <th hidden><span class="form-check fs-6 mb-0">
+                                                                        <input type="checkbox"
+                                                                            class="form-check-input check-select-all"
+                                                                            id="customCheck1">
+                                                                        <label class="form-check-label"
+                                                                            for="customCheck1"></label></span>
+                                                                </th>
+                                                                <th>Product Name</th>
+                                                                <th>Quantity</th>
+                                                                <th>Unit Price</th>
+                                                                <th>Discount</th>
+                                                                <th>Total</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <% if(orderInfo.CustomerOrder.orderItems.length !=0 ){ 
+                                                                for(let item of orderInfo.CustomerOrder.orderItems){ 
+                                                            %>
+                                                                <tr>
+                                                                    <td hidden></td>
+                                                                    <td>
+                                                                        <%=item.productName%>
+                                                                    </td>
+                                                                    <td>
+                                                                        <%=item.quantity%>
+                                                                    </td>
+                                                                    <td>
+                                                                        <%=item.unitPrice.toLocaleString('en-US', {
+                                                                            minimumFractionDigits: 2,
+                                                                            maximumFractionDigits: 2 })%>
+                                                                    </td>
+                                                                    <td>
+                                                                        <%=item.discount.toLocaleString('en-US', {
+                                                                            minimumFractionDigits: 2,
+                                                                            maximumFractionDigits: 2 })%>
+                                                                    </td>
+                                                                    <td>
+                                                                        <%=item.total.toLocaleString('en-US', {
+                                                                            minimumFractionDigits: 2,
+                                                                            maximumFractionDigits: 2 })%>
+                                                                    </td>
+
+                                                                </tr>
+                                                                <% } } %>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12 mb-md-4 mb-3">
+                                        <div class="card card-border mb-0 h-100">
+                                            <div class="card-body">
+                                                <h4>Prescriptions</h4>
+                                                <div class="contact-list-view">
+                                                    <table id="myTable" class="table nowrap mb-5">
+                                                        <thead>
+                                                            <tr>
+                                                                <th hidden><span class="form-check fs-6 mb-0">
+                                                                        <input type="checkbox"
+                                                                            class="form-check-input check-select-all"
+                                                                            id="customCheck1">
+                                                                        <label class="form-check-label"
+                                                                            for="customCheck1"></label></span>
+                                                                </th>
+                                                                <th style="width: 500px;">Name</th>
+                                                                <th style="width: 500px;">Current Status</th>
+                                                                <th style="width: 400px;">Actions</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <% if (orderInfo.CustomerOrder.prescriptionFullDetails != null) { 
+                                                                for (var i=0; i < orderInfo.CustomerOrder.prescriptionFullDetails.length; i++) { 
+                                                                    
+                                                            %>
+                                                                <tr>
+                                                                    <td hidden></td>
+                                                                    <td>
+                                                                        <a data-bs-toggle="modal"
+                                                                            data-id="<%=orderInfo.CustomerOrder.prescriptionFullDetails[i].prescription%>"
+                                                                            data-bs-target="#preview_info"
+                                                                            data-bs-toggle="tooltip"
+                                                                            data-placement="top" title=""
+                                                                            data-bs-original-title="Preview"
+                                                                            id="openPreviewModal" href="#">
+                                                                           <b> prescription <%=i+1%>.jpeg</b>
+                                                                        </a>
+                                                                        
+                                                                    </td>
+                                                                  
+                                                                    <td>
+                                                                        <% var status=orderInfo.CustomerOrder.prescriptionFullDetails[i].status;
+                                                                            var classStatus="" 
+                                                                            if(status=="Pending" ){
+                                                                                classStatus="dot-pending" 
+                                                                            } else if(status=="Approved" ){
+                                                                                classStatus="dot-approved" 
+                                                                            } else  if(status=="Rejected" ){
+                                                                                classStatus="dot-reject" 
+                                                                            } 
+                                                                        %>
+                                                                            <span class=<%=classStatus%>></span>&nbsp;&nbsp; <%=status%>
+                                                                            <br><br>
+                                                                            <select class="btn btn-sm" id="pres_status" style="display: inline-block; border: 1px solid;">
+                                                                                <option selected disabled value="">Change Status</option>
+                                                                                <option value="Pending,<%=orderInfo.CustomerOrder.prescriptionFullDetails[i].id%>,<%=orderInfo.CustomerOrder.prescriptionFullDetails[i].prescription%>">Pending</option>
+                                                                                <option value="Approved,<%=orderInfo.CustomerOrder.prescriptionFullDetails[i].id%>,<%=orderInfo.CustomerOrder.prescriptionFullDetails[i].prescription%>">Approved</option>
+                                                                                <option value="Rejected,<%=orderInfo.CustomerOrder.prescriptionFullDetails[i].id%>,<%=orderInfo.CustomerOrder.prescriptionFullDetails[i].prescription%>">Rejected</option>
+                                                                            </select>
+                                                                    </td>
+                                                                    <td>
+                                                                        <input type="hidden" value="<%=orderInfo.CustomerOrder.prescriptionFullDetails[i].id%>" class="hidden-id"/>
+                                                                        <input type="hidden" value="<%=orderInfo.CustomerOrder.prescriptionFullDetails[i].status%>" class="hidden-status"/>
+                                                                        <!-- <div class="col-sm-4"> -->
+                                                                            <!-- <div id="preview" class="collapse show"> -->
+                                                                                <!-- <div class="card-body"> -->
+                                                                                    <input type="file" id="input-file-now" name="img" class="dropify-3 upload"/>
+                                                                                <!-- </div> -->
+                                                                            <!-- </div> -->
+                                                                        <!-- </div>-->
+                                                                        <a class="btn btn-sm btn-primary" id="btnPresUpdate" type="button" style="width: 180px; margin-top: 10px;">Submit</a>
+                                                                    </td>
+                                                                    
+                                                                </tr>
+                                                                <% } } %>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12 mb-md-4 mb-3">
+                                        <div class="card card-border mb-0 h-100">
+                                            <div class="card-body">
+                                                <h4>Log History</h4>
+                                                <div class="contact-list-view">
+                                                    <table class="table nowrap w-100 mb-5 table table-bordered">
+                                                        <thead>
+                                                            <tr>
+                                                                <th hidden><span class="form-check fs-6 mb-0">
+                                                                    <input type="checkbox"
+                                                                        class="form-check-input check-select-all"
+                                                                        id="customCheck1">
+                                                                    <label class="form-check-label"
+                                                                        for="customCheck1"></label></span>
+                                                                </th>
+                                                                <th>Order Status</th>
+                                                                <th>Comments/Notes</th>
+                                                                <th>Modified By</th>
+                                                                <th>Modified Date</th>
+                                                               
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <% if(orderInfo.OrderUpdateLog.length !=0 ){ 
+                                                                for(let item of orderInfo.OrderUpdateLog){ 
+                                                                    var modifiedDate = item.modifiedDate.split('+')[0].trim();
+                                                            %>
+                                                                <tr>
+                                                                    <td hidden></td>
+                                                                    <td><%=item.status%></td>
+                                                                    <td><%=item.note%></td>  
+                                                                    <td><%=item.modifiedBy%></td>
+                                                                    <td><%=modifiedDate%></td>                                                                    
+                                                                </tr>
+                                                                <% } } %>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <!-- /Page Body -->
+                    </div>
+                    <!-- /Page Body -->
+
+
+                </div>
+
+                <!-- Page Footer -->
+                <%- include('includes/footer.ejs'); %>
+
+            </div>
+            <!-- /Main Content -->
+    </div>
+    <!-- /Wrapper -->
+
+    <!-- jQuery -->
+    <script src="/vendors/jquery/dist/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JS -->
+    <script src="/vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- FeatherIcons JS -->
+    <script src="/dist/js/feather.min.js"></script>
+
+    <!-- Fancy Dropdown JS -->
+    <script src="/dist/js/dropdown-bootstrap-extended.js"></script>
+
+    <!-- Simplebar JS -->
+    <script src="/vendors/simplebar/dist/simplebar.min.js"></script>
+
+    <!-- Data Table JS -->
+    <script src="/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="/vendors/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script>
+    <script src="/vendors/datatables.net-select/js/dataTables.select.min.js"></script>
+
+    <!-- Daterangepicker JS -->
+    <script src="/vendors/moment/min/moment.min.js"></script>
+    <script src="/vendors/daterangepicker/daterangepicker.js"></script>
+    <script src="/dist/js/daterangepicker-data.js"></script>
+
+    <!-- Amcharts Maps JS -->
+    <script src="/vendors/@amcharts/amcharts4/core.js"></script>
+    <script src="/vendors/@amcharts/amcharts4/maps.js"></script>
+    <script src="/vendors/@amcharts/amcharts4-geodata/worldLow.js"></script>
+    <script src="/vendors/@amcharts/amcharts4-geodata/worldHigh.js"></script>
+    <script src="/vendors/@amcharts/amcharts4/themes/animated.js"></script>
+
+    <!-- Apex JS -->
+    <script src="/vendors/apexcharts/dist/apexcharts.min.js"></script>
+
+    <!-- Dropify JS -->
+    <script src="/vendors/dropify/dist/js/dropify.min.js"></script>
+    <script src="/dist/js/dropify-data.js"></script>
+
+    <!-- Init JS -->
+    <script src="/dist/js/init.js"></script>
+    <script src="/dist/js/chips-init.js"></script>
+    <script src="/dist/js/dashboard-data.js"></script>
+
+    <!-- Toastr  -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
+
+    <script>
+    $(document).ready(function() {
+         $('#myTable').on('change', '#pres_status', function() {
+            var selectedValues = $(this).val();
+            var status = selectedValues.split(',')[0]
+            var id = selectedValues.split(',')[1]
+            var prescription = selectedValues.split(',')[2]
+            //console.log('Selected Values: ' + selectedValues);
+
+            // Get current date 
+            const date = new Date();
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0'); // Add 1 to get the month index starting from 1, and pad with 0 if needed
+            const day = String(date.getDate()).padStart(2, '0'); // Pad with 0 if needed
+            const hours = String(date.getHours()).padStart(2, '0'); // Pad with 0 if needed
+            const minutes = String(date.getMinutes()).padStart(2, '0'); // Pad with 0 if needed
+            const seconds = String(date.getSeconds()).padStart(2, '0'); // Pad with 0 if needed
+            const timezoneOffset = String(-(date.getTimezoneOffset() / 60)).padStart(2, '0'); // Get the timezone offset in hours and invert it, then pad with 0 if needed
+            // Format the date and time string
+            const currentDate = `${year}-${month}-${day} ${hours}:${minutes}:${seconds} +05:30`;
+
+            $.ajax({
+                url: 'http://app360dev-001-site5.dtempurl.com/api/ECommerce/Admin/Prescription/Update',
+                type: 'PUT',
+                data: JSON.stringify({
+                    "id": id,
+                    "prescription": prescription,
+                    "status": status,
+                    "updatedBy": currentDate
+                }),
+                contentType: "application/json",
+                headers: {
+                    Authorization: 'Bearer ' + '<%=current_user.auth.token%>'
+                },
+                success: function (res) {
+                    //console.log(res)
+                    toastr.success(
+                        'Status updated successfully.',
+                        'Success',
+                        {
+                            timeOut: 1000,
+                            fadeOut: 1000,
+                            onHidden: function () {
+                                window.location.href = window.location.pathname;
+                            }
+                        }
+                    );
+                }
+            })
+
+        });
+
+        $('#myTable').on('click', '#btnPresUpdate', function() {
+            var imgDoc = $(this).closest('tr').find('[name="img"]');
+            var file = imgDoc[0].files[0];
+            var id = $(this).closest('tr').find('.hidden-id').val();
+            var status = $(this).closest('tr').find('.hidden-status').val();
+            //console.log(id,status)
+            //console.log(file)
+            let imgid = uuidv4();
+
+            // Get current date 
+            const date = new Date();
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0'); // Add 1 to get the month index starting from 1, and pad with 0 if needed
+            const day = String(date.getDate()).padStart(2, '0'); // Pad with 0 if needed
+            const hours = String(date.getHours()).padStart(2, '0'); // Pad with 0 if needed
+            const minutes = String(date.getMinutes()).padStart(2, '0'); // Pad with 0 if needed
+            const seconds = String(date.getSeconds()).padStart(2, '0'); // Pad with 0 if needed
+            const timezoneOffset = String(-(date.getTimezoneOffset() / 60)).padStart(2, '0'); // Get the timezone offset in hours and invert it, then pad with 0 if needed
+            // Format the date and time string
+            const currentDate = `${year}-${month}-${day} ${hours}:${minutes}:${seconds} +05:30`;
+
+            if (file != undefined) {
+                let blob = file.slice(0, file.size, "image/jpeg");
+                newFile = new File([blob], `${imgid}_prescription.jpeg`, { type: "image/jpeg" });
+                let formData = new FormData();
+                formData.append("id", id);
+                formData.append("status", status);
+                formData.append("updatedBy", currentDate);
+                formData.append("imgfile", newFile);
+
+                    fetch("/order/update_prescription", {
+                        method: "POST",
+                        body: formData,
+                    })
+                    .then((res) => {
+                        //console.log(res)
+                        if (res.status === 200) {
+                            toastr.success('Prescription updated successfully.','SUCCESS',{
+                                timeOut: 2000,
+                                fadeOut: 2000,
+                                onHidden: function () {
+                                    window.location.href = window.location.pathname;
+                                }
+                            });
+                        }
+                    })
+            }else{
+                toastr.error( 'Choose the new prescription first!','Error')
+            }
+        })
+
+
+    });
+
+        $(document).on("click", "#openPreviewModal", function () {
+            var image = $(this).data('id');
+            $(".modal-body #pres_image").attr("src", "https://storage.googleapis.com/prescriptions_bucket_3/" + image)
+            $('#preview_info').modal('show');
+        });
+
+        function changePresStatus(id, prescription) {
+            var status = $("#pres_status option:selected").val();
+
+            // Get current date 
+            const date = new Date();
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0'); // Add 1 to get the month index starting from 1, and pad with 0 if needed
+            const day = String(date.getDate()).padStart(2, '0'); // Pad with 0 if needed
+            const hours = String(date.getHours()).padStart(2, '0'); // Pad with 0 if needed
+            const minutes = String(date.getMinutes()).padStart(2, '0'); // Pad with 0 if needed
+            const seconds = String(date.getSeconds()).padStart(2, '0'); // Pad with 0 if needed
+            const timezoneOffset = String(-(date.getTimezoneOffset() / 60)).padStart(2, '0'); // Get the timezone offset in hours and invert it, then pad with 0 if needed
+            // Format the date and time string
+            const currentDate = `${year}-${month}-${day} ${hours}:${minutes}:${seconds} +05:30`;
+
+            $.ajax({
+                url: 'http://app360dev-001-site5.dtempurl.com/api/ECommerce/Admin/Prescription/Update',
+                type: 'PUT',
+                data: JSON.stringify({
+                    "id": id,
+                    "prescription": prescription,
+                    "status": status,
+                    "updatedBy": currentDate
+                }),
+                contentType: "application/json",
+                headers: {
+                    Authorization: 'Bearer ' + '<%=current_user.auth.token%>'
+                },
+                success: function (res) {
+                    //console.log(res)
+                    toastr.success(
+                        'Status updated successfully.',
+                        'Success',
+                        {
+                            timeOut: 1000,
+                            fadeOut: 1000,
+                            onHidden: function () {
+                                window.location.href = window.location.pathname;
+                            }
+                        }
+                    );
+                }
+            })
+        }
+
+        function uuidv4() {
+            return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, (c) =>
+                (
+                    c ^
+                    (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (c / 4)))
+                ).toString(16)
+            );
+        }
+       
+        // Change Full Order Status 
+        $("#order_status").on("change", function () {
+            var selectedOrderStatus = $(this).val();
+            //console.log(selectedOrderStatus)
+            $(".modal-body #select_status").val(selectedOrderStatus);
+            $(".modal-body #order_code").val("<%=orderInfo.CustomerOrder.orderCode%>");
+            
+            if(selectedOrderStatus == "Approved"){
+                $(".modal-body #approved_by").val("<%=current_user.employee.firstName%>"+" " +"<%=current_user.employee.lastName%>"+ " ("+"<%=current_user.employee.code%>"+")");
+                $(".approve").show();
+                $(".pending").hide();
+                $(".reject").hide();
+                $(".process").hide();
+                $(".ship").hide();
+                $(".complete").hide();
+                $(".refund").hide();
+                $(".cancel").hide();
+                $('#comment_info').modal('show');
+            }else if(selectedOrderStatus == "Rejected"){
+                $(".modal-body #rejected_by").val("<%=current_user.employee.firstName%>"+" " +"<%=current_user.employee.lastName%>"+ " ("+"<%=current_user.employee.code%>"+")");                
+                $(".reject").show();
+                $(".approve").hide();
+                $(".pending").hide();
+                $(".process").hide();
+                $(".ship").hide();
+                $(".complete").hide();
+                $(".refund").hide();
+                $(".cancel").hide();
+                $('#comment_info').modal('show');
+            }else if(selectedOrderStatus == "Processed"){
+                $(".modal-body #processed_by").val("<%=current_user.employee.firstName%>"+" " +"<%=current_user.employee.lastName%>"+ " ("+"<%=current_user.employee.code%>"+")");                
+                $(".process").show();
+                $(".approve").hide();
+                $(".pending").hide();
+                $(".reject").hide();
+                $(".ship").hide();
+                $(".complete").hide();
+                $(".refund").hide();
+                $(".cancel").hide();
+                $('#comment_info').modal('show');
+            }else if(selectedOrderStatus == "Shipped"){
+                $(".modal-body #shipped_by").val("<%=current_user.employee.firstName%>"+" " +"<%=current_user.employee.lastName%>"+ " ("+"<%=current_user.employee.code%>"+")");                                
+                $(".ship").show();
+                $(".approve").hide();
+                $(".pending").hide();
+                $(".reject").hide();
+                $(".process").hide();
+                $(".complete").hide();
+                $(".refund").hide();
+                $(".cancel").hide();
+                $('#comment_info').modal('show');
+            }else if(selectedOrderStatus == "Completed"){
+                $(".modal-body #completed_by").val("<%=current_user.employee.firstName%>"+" " +"<%=current_user.employee.lastName%>"+ " ("+"<%=current_user.employee.code%>"+")");                                                
+                $(".complete").show();
+                $(".approve").hide();
+                $(".pending").hide();
+                $(".reject").hide();
+                $(".process").hide();
+                $(".ship").hide();
+                $(".refund").hide();
+                $(".cancel").hide();
+                $('#comment_info').modal('show');
+            }else if(selectedOrderStatus == "Refund"){
+                $(".modal-body #refund_by").val("<%=current_user.employee.firstName%>"+" " +"<%=current_user.employee.lastName%>"+ " ("+"<%=current_user.employee.code%>"+")");                                                
+                // check if this order is already in Paid status or not
+                if("<%=orderInfo.CustomerOrder.order_PaymentStatus%>" == "Paid" || "<%=orderInfo.CustomerOrder.order_PaymentStatus%>" == "Refund"){
+                    var subTotal = parseFloat("<%=orderInfo.CustomerOrder.subTotal%>"); 
+                    var subTotalFormatted = subTotal.toFixed(2);         
+                    $(".modal-body #refund_total").val(subTotalFormatted);
+                    $(".refund").show();
+                    $(".approve").hide();
+                    $(".pending").hide();
+                    $(".reject").hide();
+                    $(".process").hide();
+                    $(".ship").hide();
+                    $(".complete").hide();
+                    $(".cancel").hide();
+                    $('#comment_info').modal('show');
+                }else {
+                    toastr.error('This is not a Paid Order. You can\'t change the status to Rufund! ', 'ERROR',
+                    {
+                        timeOut: 2000,
+                        fadeOut: 1000,
+                        onHidden: function () {
+                            window.location.href = window.location.pathname;
+                        }
+                        });
+                }
+                
+            }else if(selectedOrderStatus == "Cancelled"){
+                $(".modal-body #cancelled_by").val("<%=current_user.employee.firstName%>"+" " +"<%=current_user.employee.lastName%>"+ " ("+"<%=current_user.employee.code%>"+")");                                                
+                $(".cancel").show();
+                $(".approve").hide();
+                $(".pending").hide();
+                $(".reject").hide();
+                $(".process").hide();
+                $(".ship").hide();
+                $(".complete").hide();
+                $(".refund").hide();
+                $('#comment_info').modal('show');
+            }else{
+                $(".modal-body #pending_by").val("<%=current_user.employee.firstName%>"+" " +"<%=current_user.employee.lastName%>"+ " ("+"<%=current_user.employee.code%>"+")");                                                                
+                $(".pending").show();
+                $(".approve").hide();
+                $(".reject").hide();
+                $(".process").hide();
+                $(".ship").hide();
+                $(".complete").hide();
+                $(".refund").hide();
+                $(".cancel").hide();
+                $('#comment_info').modal('show');
+            }
+
+        })
+
+        function clickBtnUpdateOrderStatus() {
+            //console.log('update order status')
+            var order_code = $(".modal-body #order_code").val();
+            var select_status = $(".modal-body #select_status").val();
+            var note = "";
+            var courier_name = ""; 
+            var courier_code = ""; 
+            var expected_delivery_date = ""; 
+            var delivered_date = ""; 
+            var refund_total = 0; 
+            var refund_fee= 0; 
+            var cash_collect_by = "";
+            var cash_collect_date = "";
+
+            if(select_status == "Pending"){
+                note = $(".modal-body #pending_note").val();
+            } else if(select_status == "Approved"){
+                note = $(".modal-body #approved_note").val();
+            } else if(select_status == "Rejected"){
+                note = $(".modal-body #rejected_note").val();
+            } else if(select_status == "Processed"){
+                note = $(".modal-body #processed_note").val();
+            } else if(select_status == "Shipped"){
+                note = $(".modal-body #courier_note").val();
+                courier_name = $(".modal-body #courier_name").val();
+                courier_code = $(".modal-body #courier_code").val();
+                expected_delivery_date = $(".modal-body #shipped_date").val();
+            } else if(select_status == "Completed"){
+                note = $(".modal-body #completed_note").val();
+                delivered_date = $(".modal-body #delivered_date").val(); 
+                cash_collect_by = $(".modal-body #cash_collect_by").val();
+                cash_collect_date = $(".modal-body #cash_collect_date").val(); 
+            } else if(select_status == "Refund"){
+                note = $(".modal-body #refund_note").val();
+                refund_total = $(".modal-body #refund_total").val();; 
+                refund_fee= $(".modal-body #refund_fee").val();; 
+            } else if(select_status == "Cancelled"){
+                note = $(".modal-body #cancelled_note").val();
+            }
+            
+            //console.log(order_code, select_status, note)
+
+            $.ajax({
+                url: 'http://app360dev-001-site5.dtempurl.com/api/ECommerce/Admin/CustomerOrder/Update/Status',
+                type: 'POST',
+                headers: {
+                    Authorization: 'Bearer ' + '<%=current_user.auth.token%>'
+                },
+                data: JSON.stringify({ 
+                    "orderCode": order_code,
+                    "status": select_status,
+                    "employeeCode": "<%=current_user.employee.code%>",
+                    "note": note,
+                    "courierName": courier_name,
+                    "courierTrackingCode": courier_code,
+                    "expectedDeliveryDate": expected_delivery_date,
+                    "deliveredDate": delivered_date,
+                    "cashCollectedBy": cash_collect_by,
+                    "cashCollectedDate": cash_collect_date,
+                    "refundTotal": refund_total,
+                    "refundHandlingFee": refund_fee
+                }),
+                contentType: "application/json",
+                success: function (res) {
+                    //console.log("Request succeeded:", res);
+                    if(res.status == "Success"){
+                        toastr.success("Order status updated as "+ select_status+".", 'Success',
+                        {
+                            timeOut: 1000,
+                            fadeOut: 1000,
+                            onHidden: function () {
+                                window.location.href = window.location.pathname;
+                            }
+                        }
+                    );
+                    }else{
+                        toastr.error( res.message, 'Error' );
+                    }
+                },
+                error: function(xhr, status, error) {
+                    //console.log("Request failed:", xhr, status, error);
+                }
+            })
+
+        }
+
+    </script>
+
+    <!-- Comment Modal -->
+    <div id="comment_info" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <h5 class="mb-5">Order Comments</h5>
+                        <div class="row gx-3">
+                            <input type="hidden" id="order_code"/>
+                            <input type="hidden" id="select_status"/>
+                             <!-- Pending -->
+                             <div class="col-sm-12 form-group pending">
+                                <label class="form-label">Updated By</label>
+                                <input class="form-control" type="text" id="pending_by" readonly/>
+                            </div>
+                            <div class="col-sm-12 form-group pending">
+                                <label class="form-label">Order Notes</label>
+                                <textarea class="form-control" id="pending_note"></textarea>
+                            </div>
+                            <!-- Approved -->
+                            <div class="col-sm-12 form-group approve">
+                                <label class="form-label">Approved By</label>
+                                <input class="form-control" type="text" id="approved_by" readonly/>
+                            </div>
+                            <div class="col-sm-12 form-group approve">
+                                <label class="form-label">Approved Notes</label>
+                                <textarea class="form-control" id="approved_note"></textarea>
+                            </div>
+                            <!-- Rejected -->
+                            <div class="col-sm-12 form-group reject">
+                                <label class="form-label">Rejected By</label>
+                                <input class="form-control" type="text" id="rejected_by" readonly/>
+                            </div>
+                            <div class="col-sm-12 form-group reject">
+                                <label class="form-label">Rejected Notes</label>
+                                <textarea class="form-control" id="rejected_note"></textarea>
+                            </div>
+                            <!-- Processed -->
+                            <div class="col-sm-12 form-group process">
+                                <label class="form-label">Processed By</label>
+                                <input class="form-control" type="text" id="processed_by" readonly/>
+                            </div>
+                            <div class="col-sm-12 form-group process">
+                                <label class="form-label">Processed Notes</label>
+                                <textarea class="form-control" id="processed_note"></textarea>
+                            </div>
+                            <!-- Shipped -->
+                            <div class="col-sm-6 form-group ship">
+                                <label class="form-label">Courier Name</label>
+                                <input class="form-control" type="text" id="courier_name"/>
+                            </div>
+                            <div class="col-sm-6 form-group ship">
+                                <label class="form-label">Courier Tracking Code</label>
+                                <input class="form-control" type="text" id="courier_code"/>
+                            </div>
+                            <div class="col-sm-12 form-group ship">
+                                <label class="form-label">Courier Notes</label>
+                                <textarea class="form-control" id="courier_note"></textarea>
+                            </div>                           
+                            <div class="col-sm-6 form-group ship">
+                                <label class="form-label">Expected Delivery Date</label>
+                                <input class="form-control" type="date" id="shipped_date"/>
+                            </div>
+                            <div class="col-sm-6 form-group ship">
+                                <label class="form-label">Shipped By</label>
+                                <input class="form-control" type="text" id="shipped_by" readonly/>
+                            </div>
+                            <!-- Completed -->
+                            <div class="col-sm-6 form-group complete">
+                                <label class="form-label">Completed By</label>
+                                <input class="form-control" type="text" id="completed_by" readonly/>
+                            </div>
+                            <div class="col-sm-6 form-group complete">
+                                <label class="form-label">Completed Notes</label>
+                                <textarea class="form-control" id="completed_note"></textarea>
+                            </div>
+                            <div class="col-sm-6 form-group complete">
+                                <label class="form-label">Delivered By</label>
+                                <input class="form-control" type="text" id="delivered_by"/>
+                            </div>
+                            <div class="col-sm-6 form-group complete">
+                                <label class="form-label">Delivery Date</label>
+                                <input class="form-control" type="date" id="delivered_date"/>
+                            </div>
+                            <% 
+                                var payMethod = orderInfo.CustomerOrder.paymentMethod;  
+                                if(payMethod == "cash"){
+                            %>
+                            <div class="col-sm-6 form-group complete">
+                                <label class="form-label">Cash Collected By</label>
+                                <input class="form-control" type="text" id="cash_collect_by"/>
+                            </div>
+                            <div class="col-sm-6 form-group complete">
+                                <label class="form-label">Cash Collected Date</label>
+                                <input class="form-control" type="date" id="cash_collect_date"/>
+                            </div>
+                            <% } %>
+                            <!-- Refund -->
+                            <div class="col-sm-6 form-group refund">
+                                <label class="form-label">Refund Total</label>
+                                <input class="form-control" type="text" id="refund_total" readonly/>
+                            </div>
+                            <div class="col-sm-6 form-group refund">
+                                <label class="form-label">Refund Handling Fee</label>
+                                <input class="form-control" type="text" id="refund_fee"/>
+                            </div>
+                            <div class="col-sm-6 form-group refund">
+                                <label class="form-label">Refund By</label>
+                                <input class="form-control" type="text" id="refund_by" readonly/>
+                            </div>
+                            <div class="col-sm-6 form-group refund">
+                                <label class="form-label">Refund Notes</label>
+                                <textarea class="form-control" id="refund_note"></textarea>
+                            </div>                            
+                            <!-- Cancelled -->
+                            <div class="col-sm-12 form-group cancel">
+                                <label class="form-label">Cancelled By</label>
+                                <input class="form-control" type="text" id="cancelled_by" readonly/>
+                            </div>
+                            <div class="col-sm-12 form-group cancel">
+                                <label class="form-label">Cancelled Notes</label>
+                                <textarea class="form-control" id="cancelled_note"></textarea>
+                            </div>
+
+                        </div>
+                </div>
+                <div class="modal-footer align-items-center">
+                    <a type="button" class="btn btn-primary" onclick="clickBtnUpdateOrderStatus();" data-bs-dismiss="modal">Submit</a>               
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="margin-right: 20px; width: 100px;">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Comment Modal -->
+
+    <!-- Preview Modal -->
+    <div id="preview_info" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <img id="pres_image" src="" width="80%" height="80%" />
+                </div>
+                <div class="modal-footer align-items-center">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                        style="margin-right: 20px; width: 100px;">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Preview Modal -->
+
+</body>
+
+</html>

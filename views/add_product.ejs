@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Meta Tags -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel | Product</title>
+    <meta name="description"
+        content="A modern CRM Dashboard Template with reusable and flexible components for your SaaS web applications by hencework. Based on Bootstrap." />
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/dist/img/favicon.png">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+
+    <!-- Bootstrap Dropify CSS -->
+    <link href="/vendors/dropify/dist/css/dropify.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Bootstrap Colorpicker -->
+    <link href="/vendors/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css" rel="stylesheet"
+        type="text/css" />
+
+    <!-- Daterangepicker CSS -->
+    <link href="/vendors/daterangepicker/daterangepicker.css" rel="stylesheet" type="text/css" />
+
+    <!-- CSS -->
+    <link href="/dist/css/style.css" rel="stylesheet" type="text/css">
+
+    <!-- Select2 CSS -->
+    <link href="/vendors/select2/dist/css/select2.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Data Table CSS -->
+    <link href="/vendors/datatables.net-bs5/css/dataTables.bootstrap5.min.css" rel="stylesheet" type="text/css" />
+    <link href="/vendors/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css" rel="stylesheet"
+        type="text/css" />
+
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+    
+    <!-- Toastr  -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet" />
+
+    <style>
+        .tox-statusbar__branding {
+            display: none;
+        }
+
+        .tox-statusbar__path-item {
+            display: none;
+        }
+
+        .bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn) {
+            width: 700px;
+        }
+
+    </style>
+
+</head>
+
+<body style="font-size: 15px;">
+    <!-- Wrapper -->
+    <div class="hk-wrapper" data-layout="vertical" data-layout-style="default" data-menu="light" data-footer="simple">
+        <!-- /Header -->
+        <%- include('includes/header.ejs'); %>
+
+            <!-- Vertical Nav -->
+            <div class="hk-menu">
+                <!-- Brand -->
+                <div class="menu-header">
+                    <span>
+                        <a class="navbar-brand" href="/home">
+                            <img class="brand-img img-fluid" src="/dist/img/icon.png" width="45" height="70" alt="Logo"
+                                style="padding-bottom: 10px; padding-top: 15px;" />
+                            <span
+                                style="font-family: 'Barlow',sans-serif; font-size: 14px; font-weight: bold;padding-left: 10px;">KANDY
+                                PHARMACY</span>
+                        </a>
+                        <button class="btn btn-icon btn-rounded btn-flush-dark flush-soft-hover navbar-toggle">
+                            <span class="icon">
+                                <span class="svg-icon fs-5">
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                        class="icon icon-tabler icon-tabler-arrow-bar-to-left" width="24" height="24"
+                                        viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                        <line x1="10" y1="12" x2="20" y2="12"></line>
+                                        <line x1="10" y1="12" x2="14" y2="16"></line>
+                                        <line x1="10" y1="12" x2="14" y2="8"></line>
+                                        <line x1="4" y1="4" x2="4" y2="20"></line>
+                                    </svg>
+                                </span>
+                            </span>
+                        </button>
+                    </span>
+                </div>
+                <!-- /Brand -->
+
+                <!-- /Navbar -->
+                <%- include('includes/navbar.ejs'); %>
+            </div>
+            <div id="hk_menu_backdrop" class="hk-menu-backdrop"></div>
+            <!-- /Vertical Nav -->
+
+            <!-- Main Content -->
+            <div class="hk-pg-wrapper">
+                <div class="container-xxl">
+                    <!-- Page Header -->
+                    <div class="hk-pg-header">
+                        <h1 class="pg-title">Add Product</h1>
+                        <!-- <p>The Avatar component is used to represent a user, and displays the profile picture, initials or fallback icon.</p> -->
+                    </div>
+                    <!-- /Page Header -->
+
+                    <!-- Page Body -->
+                    <div class="hk-pg-body" style="padding: 0px;">
+                        <div class="row edit-profile-wrap" style="margin-right: 0px; margin-left: 0px;">
+                            <div class="col-lg-12 col-sm-12 col-12">
+                                <div class="tab-content">
+                                    <div class="tab-pane fade show active" id="tab_block_1">
+                                        <form>
+
+                                            <div class="row gx-3" style="border: 2px solid #edeef1; padding: 20px 0px 18px 40px; max-height: 300px;">
+                                                <div class="dropdown bootstrap-select fit-width dropup form-control" style="border: 1px solid #e9ecef; max-height: 300px;">
+                                                    <!-- <select class="selectpicker" data-live-search="true" style="max-height: 300px; overflow-y: auto;" id="pos_product" title="Search for POS Products..." data-size="6">
+                                                        <% 
+                                                        if(prolist != null){
+                                                        for (let pro of prolist){ 
+                                                            %>
+                                                            <option value="<%=pro.ProductCode%>">
+                                                                <%=pro.Name%>
+                                                            </option>
+                                                        <% 
+                                                            } }
+                                                        %>
+                                                    </select> -->
+
+                                                    <select class="selectpicker" data-live-search="true" style="max-height: 300px; overflow-y: auto;" id="pos_product" title="Search for POS Products..." data-size="6">
+                                                        <% 
+                                                        if(prolist != null){
+                                                            for (let pro of prolist){ 
+                                                        %>
+                                                        <option value="<%=pro.ProductCode%>" data-product-code="<%=pro.ProductCode%>">
+                                                            <%=pro.Name%> - <%=pro.ProductCode%>
+                                                        </option>
+                                                        <% 
+                                                            } 
+                                                        }
+                                                        %>
+                                                    </select>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <input class="form-control" type="text" id="pos_code" readonly style="margin-left: 20px;" />
+                                                </div>
+                                            </div>
+
+
+
+                                            <div
+                                                class="title title-xs title-wth-divider text-primary text-uppercase my-4">
+                                                <span>Product Info</span>
+                                            </div>
+                                            <div class="row gx-3">
+                                                <div class="col-sm-4">
+                                                    <div class="form-group">
+                                                        <label class="form-label">Product Name*</label>
+                                                        <input class="form-control" type="text" id="product_name" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <div class="form-group">
+                                                        <label class="form-label">Generic Name</label>
+                                                        <input class="form-control" type="text" id="generic_name" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <div class="form-group">
+                                                        <label class="form-label">Needs Prescription*</label>
+                                                        <select class="form-select" id="needs_pres">
+                                                            <option disabled selected>Needs Prescription</option>
+                                                            <option value="true">Yes</option>
+                                                            <option value="false">No</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row gx-3">
+                                                <div class="col-sm-4">
+                                                    <div class="form-group">
+                                                        <label class="form-label">Pack Size*</label>
+                                                        <input class="form-control" type="text" id="pack_size" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <div class="form-group">
+                                                        <label class="form-label">Product Company Code*</label>
+                                                        <input class="form-control" type="text" id="company_code" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <div class="form-group">
+                                                        <label class="form-label">Manufacturer Code*</label>
+                                                        <input class="form-control" type="text" id="manu_code" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row gx-3">
+                                                <div class="col-sm-4">
+                                                    <div class="form-group">
+                                                        <label class="form-label">Main Category*</label>
+                                                        <select class="form-select" name="main_category_code" id="main_category_code">
+                                                            <option disabled selected>Choose one...</option>
+                                                        </select>
+                                                    </div>
+
+                                                    <a style="float: right;" class="btn btn-sm btn-primary" href="/maincategory/add" target="_blank">
+                                                        <i class="material-icons"><b>+</b></i>
+                                                    </a>
+                                                </div>
+                                                <div class="col-sm-4">                                                   
+                                                    <div class="form-group">
+                                                        <label class="form-label">Category*</label>
+                                                        <select class="form-select" name="category_code" id="category_code">
+                                                            <option disabled selected>Choose one...</option>
+                                                        </select>
+                                                    </div>
+
+                                                    <a style="float: right;" class="btn btn-sm btn-primary" href="/category/add" target="_blank">
+                                                        <i class="material-icons"><b>+</b></i>
+                                                    </a>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <div class="form-group">
+                                                        <label class="form-label">Sub Category*</label>
+                                                        <select class="form-select" name="sub_category_code" id="sub_category_code">
+                                                            <option disabled selected>Choose one...</option>
+                                                        </select>
+                                                    </div>
+
+                                                    <a style="float: right;" class="btn btn-sm btn-primary" href="/subcategory/add" target="_blank">
+                                                        <i class="material-icons"><b>+</b></i>
+                                                    </a>                                              
+                                                </div>
+                                            </div>
+                                            <label class="form-label">Product Description*</label>
+                                            <div class="card card-border rounded-top-start-0">
+                                                <div class="card-body">
+                                                    <div class="tab-content mt-0">
+                                                        <div class="tab-pane fade show active" id="tab_classic">
+                                                            <div class="tinymce-wrap">
+                                                                <textarea id="classic" name="desc"></textarea>
+                                                            </div>
+                                                        </div>
+                                                        <div class="tab-pane fade" id="tab_code">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div
+                                                class="title title-xs title-wth-divider text-primary text-uppercase my-4">
+                                                <span>Upload Product Images&nbsp;&nbsp;&nbsp;&nbsp;(Please upload at
+                                                    least two images here)</span>
+                                            </div>
+
+                                            <div class="row gx-3">
+
+                                                <div class="col-sm-4">
+                                                    <div id="preview1" class="collapse show">
+                                                        <div class="card-body">
+                                                            <input type="file" id="input-file-now1" name="img[]"
+                                                                class="dropify upload1" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-4">
+                                                    <div id="preview2" class="collapse show">
+                                                        <div class="card-body">
+                                                            <input type="file" id="input-file-now" name="img[]"
+                                                                class="dropify upload2" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-4">
+                                                    <div id="preview3" class="collapse show">
+                                                        <div class="card-body">
+                                                            <input type="file" id="input-file-now" name="img[]"
+                                                                class="dropify upload3" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-4">
+                                                    <div id="preview4" class="collapse show">
+                                                        <div class="card-body">
+                                                            <input type="file" id="input-file-now" name="img[]"
+                                                                class="dropify upload4" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-4">
+                                                    <div id="preview5" class="collapse show">
+                                                        <div class="card-body">
+                                                            <input type="file" id="input-file-now" name="img[]"
+                                                                class="dropify upload5" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                            <button type="button" class="btn btn-primary mt-5" id="btnProductSave">Save
+                                                Product</button>
+                                        </form>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /Page Body -->
+                </div>
+
+                <!-- Page Footer -->
+                <%- include('includes/footer.ejs'); %>
+
+            </div>
+            <!-- /Main Content -->
+
+    </div>
+    <!-- /Wrapper -->
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+
+    <!-- jQuery -->
+    <script src="/vendors/jquery/dist/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JS -->
+    <script src="/vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- FeatherIcons JS -->
+    <script src="/dist/js/feather.min.js"></script>
+
+    <!-- Fancy Dropdown JS -->
+    <script src="/dist/js/dropdown-bootstrap-extended.js"></script>
+
+    <!-- Simplebar JS -->
+    <script src="/vendors/simplebar/dist/simplebar.min.js"></script>
+
+    <!-- Repeater JS -->
+    <script src="/vendors/jquery.repeater/jquery.repeater.min.js"></script>
+
+    <!-- Daterangepicker JS -->
+    <script src="/vendors/moment/min/moment.min.js"></script>
+    <script src="/vendors/daterangepicker/daterangepicker.js"></script>
+    <script src="/dist/js/daterangepicker-data.js"></script>
+
+    <!-- Bootstrap Colorpicker JS -->
+    <script src="/vendors/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
+    <script src="/dist/js/color-picker-data.js"></script>
+
+    <!-- Tinymce JS -->
+    <script src="/vendors/tinymce/tinymce.min.js"></script>
+
+    <!-- Dropify JS -->
+    <script src="/vendors/dropify/dist/js/dropify.min.js"></script>
+    <script src="/dist/js/dropify-data.js"></script>
+
+    <!-- Init JS -->
+    <script src="/dist/js/init.js"></script>
+    <script src="/dist/js/create-invoice-data.js"></script>
+    <script src="/dist/js/chips-init.js"></script>
+
+    <!-- Data Table JS -->
+    <script src="/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="/vendors/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script>
+    <script src="/vendors/datatables.net-select/js/dataTables.select.min.js"></script>
+
+    <!-- Select2 JS -->
+    <script src="/vendors/select2/dist/js/select2.full.min.js"></script>
+
+    <!-- Tinymce JS -->
+    <script src="/vendors/tinymce/tinymce.min.js"></script>
+    <script src="/dist/js/tinymce-data.js"></script>
+
+    <!-- Toastr  -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
+
+    <!-- Shared JS -->
+    <script src="/vendors/shared.js"></script>
+
+    <script>
+
+        $(document).ready(function () {
+            // set readonly for some fields 
+            $("#company_code").prop("readonly", true);
+            $("#manu_code").prop("readonly", true);
+        });
+
+        $('#main_category_code').click(function (e) {
+            updateMainCatDropdownOptions()
+        });
+
+
+        // read all categories related to main category 
+        $('#main_category_code').change(function (e) {
+            var main_cat_code = $('#main_category_code').find(":selected").val();
+            var accessToken = "<%=accessToken%>";
+
+            $.ajax({
+                url: 'http://app360dev-001-site5.dtempurl.com/api/ECommerce/Admin/EcomCategory/' + main_cat_code + '/SubCategories',
+                type: 'GET',
+                headers: {
+                    Authorization: 'Bearer ' + accessToken
+                },
+                success: function (res) {
+                    //console.log(res.content);
+                    $('#category_code').children().remove().end()
+                        .append('<option disabled selected>Choose one...</option>');
+
+                    $('#sub_category_code').children().remove().end()
+                        .append('<option disabled selected>Choose one...</option>');
+
+                    var list = res.content;
+                    if (list != null) {
+                        for (var i = 0; i < list.length; i++) {
+                            $('<option/>').val(list[i].Code).html(list[i].Name).appendTo('#category_code');
+                        }
+                    }
+                }
+            })
+        });
+
+        $('#category_code').click(function (e) {
+            updateCatDropdownOptions()
+        });
+
+
+        // read all sub categories related to category 
+        $('#category_code').change(function (e) {
+            var cat_code = $('#category_code').find(":selected").val();
+            var accessToken = "<%=accessToken%>";
+            //console.log(cat_code)
+            $.ajax({
+                url: 'http://app360dev-001-site5.dtempurl.com/api/ECommerce/Admin/EcomSubCategory1/' + cat_code + '/SubCategories',
+                type: 'GET',
+                headers: {
+                    Authorization: 'Bearer ' + accessToken
+                },
+                success: function (res) {
+                    //console.log(res.content);
+                    $('#sub_category_code').children().remove().end()
+                        .append('<option disabled selected>Choose one...</option>');
+
+                    var list = res.content;
+                    if (list != null) {
+                        for (var i = 0; i < list.length; i++) {
+                            $('<option/>').val(list[i].Code).html(list[i].Name).appendTo('#sub_category_code');
+                        }
+                    }
+                }
+            })
+        });
+
+        $('#sub_category_code').click(function (e) {
+            updateSubCatDropdownOptions()
+        });
+
+        $('#pos_product').change(function (e) {
+            // load data to the fields 
+            var product_code = $('#pos_product').find(":selected").val();
+            // set POS code 
+            // console.log(product_code);
+            $('#pos_code').val(product_code);
+            var accessToken = "<%=accessToken%>";
+
+            $.ajax({
+                url: 'http://app360dev-001-site5.dtempurl.com/api/ECommerce/Admin/EcomProduct/POSProducts/OnlineAvailable/' + product_code,
+                type: 'GET',
+                headers: {
+                    Authorization: 'Bearer ' + accessToken
+                },
+                success: function (res) {
+                    var result = res.content;
+                    // set form fields
+                    $('#product_name').val(result.name.toLowerCase());
+                    $('#generic_name').val(result.genericName);
+                    document.getElementById("needs_pres").value = result.needsPrescription;
+                    $('#pack_size').val(result.packSize);
+                    $('#company_code').val(result.productCompanyCode);
+                    $('#manu_code').val(result.manufacturerCode);
+                    $("input[name='desc']").text(result.description);
+                }
+            })
+
+        });
+
+        function uuidv4() {
+            return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, (c) =>
+                (
+                    c ^
+                    (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (c / 4)))
+                ).toString(16)
+            );
+        }
+
+        // get form data and images and pass it to route ..................
+        document.getElementById("btnProductSave").addEventListener("click", () => {
+            var saveButton = document.getElementById('btnProductSave');
+            saveButton.disabled = true; // Disable the button on click
+
+            var success = true;
+            var product_code = $('#pos_code').val();
+            var product_name = $('#product_name').val();
+            var generic_name = $('#generic_name').val();
+            var needs_pres = $('#needs_pres').val();
+            var pack_size = $('#pack_size').val();
+            var company_code = $('#company_code').val();
+            var manu_code = $('#manu_code').val();
+            var main_cat = $('#main_category_code').val();
+            var cat = $('#category_code').val();
+            var sub_cat = $('#sub_category_code').val();
+            // var desc = $("input[name='desc']").text();
+            var desc = tinymce.get("classic").getContent()
+            //console.log(desc);
+
+            // check how many img src are filled ..........
+            let imgListLength = 0;
+            var input = document.getElementsByName('img[]');
+            //console.log(input);
+            for (var i = 0; i < input.length; i++) {
+                if (input[i].value != "") {
+                    imgListLength++;
+                    //console.log(input[i].value);
+                }
+            }
+            //console.log(imgListLength);
+            // check if there at least two images 
+            if (imgListLength < 2) {
+                saveButton.disabled = false;
+                success = false;
+                toastr.error(
+                    'Please upload at least two product images.', 'ERROR');
+
+            }
+
+            if (!product_name || !needs_pres || !pack_size || !main_category_code || !category_code || !sub_category_code) {
+                saveButton.disabled = false;
+                success = false;
+                toastr.error( 'Please fill required fields.', 'ERROR');
+            }
+
+            let inputImgElemts = document.querySelectorAll('[name="img[]"]');
+            //console.log('done');
+            if (success == true) {
+                for (let i = 0; i < inputImgElemts.length; i++) {
+                    let imgid = uuidv4();
+                    let file = inputImgElemts[i].files[0];
+                    // //console.log(file)
+                    if (file != undefined) {
+                        let blob = file.slice(0, file.size, "image/jpeg");
+                        newFile = new File([blob], `${imgid}_pro.jpeg`, { type: "image/jpeg" });
+                        let formData = new FormData();
+                        formData.append("product_code", product_code);
+                        formData.append("product_name", product_name);
+                        formData.append("generic_name", generic_name);
+                        formData.append("needs_pres", needs_pres);
+                        formData.append("pack_size", pack_size);
+                        formData.append("company_code", company_code);
+                        formData.append("manu_code", manu_code);
+                        formData.append("main_cat", main_cat);
+                        formData.append("cat", cat);
+                        formData.append("sub_cat", sub_cat);
+                        formData.append("desc", desc);
+                        formData.append("imgListLength", imgListLength);
+                        formData.append("current_element", i + 1);
+                        formData.append("imgfile", newFile);
+                        // save product images 
+                        fetch("/product/add", {
+                            method: "POST",
+                            body: formData,
+                        })
+                            .then((res) => {
+                                //console.log(res)
+                                if (res.status === 200) {
+                                    toastr.success('Product saved successfully.','SUCCESS',{
+                                        timeOut: 2000,
+                                        fadeOut: 2000,
+                                        onHidden: function () {
+                                            saveButton.disabled = false;
+                                            window.location.href = window.location.pathname;
+                                        }
+                                    });
+                                }
+
+                            })
+                    }
+                }
+            }
+        });
+
+    </script>
+
+</body>
+
+</html>

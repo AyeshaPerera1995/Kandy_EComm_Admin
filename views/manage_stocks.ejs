@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Meta Tags -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel | Manage Stocks</title>
+    <meta name="description"
+        content="A modern CRM Dashboard Template with reusable and flexible components for your SaaS web applications by hencework. Based on Bootstrap." />
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/dist/img/favicon.png">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+
+    <!-- Bootstrap Dropify CSS -->
+    <link href="/vendors/dropify/dist/css/dropify.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- select2 CSS -->
+    <link href="/vendors/select2/dist/css/select2.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Data Table CSS -->
+    <link href="/vendors/datatables.net-bs5/css/dataTables.bootstrap5.min.css" rel="stylesheet" type="text/css" />
+    <link href="/vendors/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css" rel="stylesheet"
+        type="text/css" />
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+
+    <!-- CSS -->
+    <link href="/dist/css/style.css" rel="stylesheet" type="text/css">
+    <!-- Toastr  -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet" />
+
+    <style>
+        /* Pagination Styles  */
+        html,
+        body {
+            height: 100%;
+        }
+
+        *,
+        *::after,
+        *::before {
+            box-sizing: border-box;
+        }
+
+        button {
+            background: none;
+            appearance: none;
+            -webkit-appearance: none;
+            -ms-appearance: none;
+            -moz-appearance: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .page-btn {
+            background: transparent;
+            color: rgb(138, 135, 135);
+            min-height: 35px;
+            min-width: 30px;
+            border-radius: 5px;
+            padding: 0px 10px 0px 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: background 0.3s ease;
+            margin: 0 5px;
+            border: 1px rgb(223, 221, 221) solid;
+            font-family: inherit;
+            font-weight: bold;
+        }
+
+        .page-btn:first-of-type {
+            margin-left: 0;
+        }
+
+        .page-btn:last-of-type {
+            margin-right: 0;
+        }
+
+        .pagination-buttons {
+            display: flex;
+            align-items: center;
+        }
+
+        .page-btn[class*="-page"] {
+            background: rgb(218, 216, 216);
+            font-size: 1.0em;
+            font-weight: bold;
+        }
+
+        .page-btn.active {
+            background: #007D88;
+            color: #fff;
+        }
+
+        .page-btn[disabled] {
+            opacity: 0.5;
+        }
+
+        .page-btn:hover {
+            background: #007D88;
+            color: #fff;
+        }
+
+        .material-icons {
+            font-size: 18px;
+        }
+
+        .bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn) {
+            width: 515px;
+        }
+    </style>
+
+</head>
+
+<body style="font-size: 15px;">
+    <!-- Wrapper -->
+    <div class="hk-wrapper" data-layout="vertical" data-layout-style="collapsed" data-menu="light" data-footer="simple"
+        data-hover="active">
+
+        <!-- /Header -->
+        <%- include('includes/header.ejs'); %>
+
+            <!-- Vertical Nav -->
+            <div class="hk-menu">
+                <!-- Brand -->
+                <div class="menu-header">
+                    <span>
+                        <a class="navbar-brand" href="/home">
+                            <img class="brand-img img-fluid" src="/dist/img/icon.png" width="45" height="70" alt="Logo"
+                                style="padding-bottom: 10px; padding-top: 15px;" />
+                            <span
+                                style="font-family: 'Barlow',sans-serif; font-size: 14px; font-weight: bold;padding-left: 10px;">KANDY
+                                PHARMACY</span>
+                        </a>
+
+                        <button class="btn btn-icon btn-rounded btn-flush-dark flush-soft-hover navbar-toggle">
+                            <span class="icon">
+                                <span class="svg-icon fs-5">
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                        class="icon icon-tabler icon-tabler-arrow-bar-to-left" width="24" height="24"
+                                        viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                        <line x1="10" y1="12" x2="20" y2="12"></line>
+                                        <line x1="10" y1="12" x2="14" y2="16"></line>
+                                        <line x1="10" y1="12" x2="14" y2="8"></line>
+                                        <line x1="4" y1="4" x2="4" y2="20"></line>
+                                    </svg>
+                                </span>
+                            </span>
+                        </button>
+                    </span>
+                </div>
+                <!-- /Brand -->
+
+                <!-- /Navbar -->
+                <%- include('includes/navbar.ejs'); %>
+
+            </div>
+            <div id="hk_menu_backdrop" class="hk-menu-backdrop"></div>
+            <!-- /Vertical Nav -->
+
+            <!-- Main Content -->
+            <div class="hk-pg-wrapper pb-0">
+                <div class="container-xxl">
+                    <!-- Page Header -->
+                    <div class="hk-pg-header">
+                        <h1 class="pg-title">Manage Stocks</h1>
+                    </div>
+                    <!-- /Page Header -->
+
+                    <div class="col-sm" style="border: 2px solid #edeef1; padding: 20px;">
+                        <div class="row gx-3 align-items-center">
+                            <input type="hidden" value="<%=current_user.auth.token%>" name="accessToken">
+                            <input type="hidden" value="<%=current_user.employee.code%>" name="emp_code">
+                            <div class="col-xl-auto mb-xl-0 mb-2">
+                                <select class="form-select" name="main_category_code" id="main_category_code"
+                                    style="width: 250px;">
+                                    <option disabled selected>Select Main Category</option>
+                                    <% for (let maincat of maincatlist){ %>
+                                        <option value="<%=maincat.code%>">
+                                            <%=maincat.name%>
+                                        </option>
+                                        <% } %>
+                                </select>
+                            </div>
+                            <div class="col-xl-auto mb-xl-0 mb-2">
+                                <select class="form-select" name="category_code" id="category_code"
+                                    style="width: 250px;">
+                                    <option disabled selected>Select Category</option>
+                                    <% for (let cat of catlist){ %>
+                                        <option value="<%=cat.Code%>">
+                                            <%=cat.Name%>
+                                        </option>
+                                        <% } %>
+                                </select>
+                            </div>
+                            <div class="col-xl-auto mb-xl-0 mb-2">
+                                <select class="form-select" name="sub_category_code" id="sub_category_code"
+                                    style="width: 250px;">
+                                    <option disabled selected>Select Sub Category</option>
+                                    <% for (let subcat of subcatlist){ %>
+                                        <option value="<%=subcat.Code%>">
+                                            <%=subcat.Name%>
+                                        </option>
+                                        <% } %>
+                                </select>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row gx-3 align-items-center">
+                            <div class="col-xl-auto mb-xl-0 mb-2">
+                                <div class="dropdown bootstrap-select fit-width dropup form-control">
+                                    <select class="selectpicker" data-live-search="true" style="max-height: 300px; overflow-y: auto;" id="product" title="Search by Product Name, Product Code...." data-size="6">
+                                                        <% 
+                                                        if(prolist != null){
+                                                            for (let pro of prolist){ 
+                                                        %>
+                                                        <option value="<%=pro.ProductCode%>" data-product-code="<%=pro.ProductCode%>">
+                                                            <%=pro.Name%> - <%=pro.ProductCode%>
+                                                        </option>
+                                                        <% 
+                                                            } 
+                                                        }
+                                                        %>
+                                     </select>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-auto mb-xl-0 mb-2">
+                                <div class="dropdown bootstrap-select fit-width dropup form-control">
+                                    <input class="form-control" type="text" name="ecom_code" id="ecom_code" placeholder="Ecom Product Code" style="width: 250px;"/>
+                                </div>
+                            </div>
+                            
+                            <div class="col-xl-auto mb-xl-0 mb-2">
+                                <button type="button" class="btn btn-sm btn-primary" id="searchProducts" onclick="searchProducts(1)">Search Products</button>
+                            </div>
+                            <div class="col-xl-auto">
+                                <a type="button" class="btn btn-sm btn-primary" href="/stock/filter">
+                                    <i class="material-icons">cached</i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Page Body -->
+                    <div class="hk-pg-body py-0">
+                        <div class="collapse-simple mt-4">
+                            <div class="card">
+                            
+                                <div id="todo_collapse_1" class="collapse show">
+                                    <div class="card-body">
+                                        <div class="contact-list-view">
+                                            <table class="table nowrap w-100 mb-5">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Product</th>
+                                                        <th>Pack Size</th>
+                                                        <th>Current Stock</th>
+                                                        <!-- <th>Unit Price</th> -->
+                                                        <th>Created Date</th>
+                                                        <th style="text-align: center;">Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="search_list">
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                        <div class="dataTables_paginate paging_simple_numbers" id="datable_1_paginate"
+                                            style="float: right;">
+                                            
+                                        </div>
+                                        <br><br>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /Page Body -->
+
+                </div>
+
+                <!-- Page Footer -->
+
+
+            </div>
+            <!-- /Main Content -->
+    </div>
+    <!-- /Wrapper -->
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+
+    <!-- jQuery -->
+    <script src="/vendors/jquery/dist/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JS -->
+    <script src="/vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- FeatherIcons JS -->
+    <script src="/dist/js/feather.min.js"></script>
+
+    <!-- Fancy Dropdown JS -->
+    <script src="/dist/js/dropdown-bootstrap-extended.js"></script>
+
+    <!-- Simplebar JS -->
+    <script src="/vendors/simplebar/dist/simplebar.min.js"></script>
+
+    <!-- Data Table JS -->
+    <script src="/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="/vendors/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script>
+    <script src="/vendors/datatables.net-select/js/dataTables.select.min.js"></script>
+
+    <!-- Select2 JS -->
+    <script src="/vendors/select2/dist/js/select2.full.min.js"></script>
+    <script src="/dist/js/select2-data.js"></script>
+
+    <!-- Dropify JS -->
+    <script src="/vendors/dropify/dist/js/dropify.min.js"></script>
+    <script src="/dist/js/dropify-data.js"></script>
+
+    <!-- Daterangepicker JS -->
+	<script src="/vendors/moment/min/moment.min.js"></script>
+
+    <!-- Init JS -->
+    <script src="/dist/js/init.js"></script>
+    <script src="/dist/js/contact-data.js"></script>
+    <script src="/dist/js/chips-init.js"></script>
+
+    <!-- Toastr  -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
+
+    <script>
+
+        $(document).ready(function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const error_msg = urlParams.get('error_msg');
+            const success_msg = urlParams.get('success_msg');
+
+            if (error_msg === 'ERROR: Please fill required fields.') {
+                toastr.error(
+                    error_msg,
+                    'Error',
+                    {
+                        timeOut: 2000,
+                        fadeOut: 2000,
+                        onHidden: function () {
+                            window.location.href = window.location.pathname;
+                        }
+                    }
+                );
+            }
+
+            if (success_msg.length > 0) {
+                toastr.success(
+                    success_msg,
+                    'Success',
+                    {
+                        timeOut: 2000,
+                        fadeOut: 1000,
+                        onHidden: function () {
+                            window.location.href = window.location.pathname;
+                        }
+                    }
+                );
+            }
+        });
+
+        // read all categories related to main category 
+        $('#main_category_code').change(function (e) {
+            var main_cat_code = $('#main_category_code').find(":selected").val();
+            var accessToken = "<%=accessToken%>";
+
+            $.ajax({
+                url: 'http://app360dev-001-site5.dtempurl.com/api/ECommerce/Admin/EcomCategory/' + main_cat_code + '/SubCategories',
+                type: 'GET',
+                headers: {
+                    Authorization: 'Bearer ' + accessToken
+                },
+                success: function (res) {
+                    // //console.log(res.content);
+                    $('#category_code').children().remove().end()
+                        .append('<option disabled selected>Select Category</option>');
+
+                    $('#sub_category_code').children().remove().end()
+                        .append('<option disabled selected>Select Sub Category</option>');
+
+                    var list = res.content;
+                    if (list != null) {
+                        for (var i = 0; i < list.length; i++) {
+                            $('<option/>').val(list[i].Code).html(list[i].Name).appendTo('#category_code');
+                        }
+                    }
+                }
+            })
+        });
+
+        // read all sub categories related to category 
+        $('#category_code').change(function (e) {
+            var cat_code = $('#category_code').find(":selected").val();
+            var accessToken = "<%=accessToken%>";
+            $.ajax({
+                url: 'http://app360dev-001-site5.dtempurl.com/api/ECommerce/Admin/EcomSubCategory1/' + cat_code + '/SubCategories',
+                type: 'GET',
+                headers: {
+                    Authorization: 'Bearer ' + accessToken
+                },
+                success: function (res) {
+                    // //console.log(res.content);
+                    $('#sub_category_code').children().remove().end()
+                        .append('<option disabled selected>Select Sub Category</option>');
+
+                    var list = res.content;
+                    if (list != null) {
+                        for (var i = 0; i < list.length; i++) {
+                            $('<option/>').val(list[i].Code).html(list[i].Name).appendTo('#sub_category_code');
+                        }
+                    }
+                }
+            })
+        });
+
+        // Pagination Start ---------------------------------------------------------------------------------------
+        // window.onload = function () {
+        //     getPageCount(1);
+        // }
+
+        // ********************************************************************************************************
+        const pageNumbers = (total, max, current) => {
+            const half = Math.floor(max / 2);
+            let to = max;
+
+            if (current + half >= total) {
+                to = total;
+            } else if (current > half) {
+                to = current + half;
+            }
+
+            let from = to - max;
+            //console.log(Array.from({ length: max }, (_, i) => (i + 1) + from));
+            return Array.from({ length: max }, (_, i) => (i + 1) + from);
+        }
+
+        // ********************************************************************************************************
+        function PaginationButton(totalPages, maxPagesVisible = 5, currentPage = 1) {
+            let pages = pageNumbers(totalPages, maxPagesVisible, currentPage);
+            //console.log('pages: ' + pages)
+            let currentPageBtn = null;
+            const buttons = new Map();
+            const disabled = {
+                start: () => pages[0] === 1,
+                prev: () => currentPage === 1,
+                end: () => pages.slice(-1)[0] === totalPages,
+                next: () => currentPage === totalPages
+            }
+            const frag = document.createDocumentFragment();
+            const paginationButtonContainer = document.createElement('div');
+            paginationButtonContainer.className = 'dataTables_paginate paging_simple_numbers';
+            // paginationButtonContainer.style = 'align-items:center;';
+
+            //   default page loading 
+            paginationButtonContainer.value = currentPage;
+            // searchProducts(currentPage);
+
+            const createAndSetupButton = (label = '', cls = '', disabled = false, handleClick) => {
+                const buttonElement = document.createElement('button');
+                if (label == 'prev') {
+                    buttonElement.innerHTML = '<i class="ri-arrow-left-s-line"></i>';
+                }
+                else if (label == 'next') {
+                    buttonElement.innerHTML = '<i class="ri-arrow-right-s-line"></i>';
+                }
+                else if (label == 'start') {
+                    buttonElement.innerHTML = '<i class="fas fa-angle-double-left"></i>';
+                }
+                else if (label == 'end') {
+                    buttonElement.innerHTML = '<i class="fas fa-angle-double-right"></i>';
+                }
+                else {
+                    buttonElement.textContent = label;
+                }
+
+                buttonElement.className = `page-btn ${cls}`;
+                buttonElement.disabled = disabled;
+                buttonElement.addEventListener('click', e => {
+                    handleClick(e);
+                    this.update();
+                    paginationButtonContainer.value = currentPage;
+                    // searchProducts(currentPage);
+                    paginationButtonContainer.dispatchEvent(new Event('change'));
+                });
+
+                return buttonElement;
+            }
+
+            const onPageButtonClick = e => currentPage = Number(e.currentTarget.textContent);
+
+            const onPageButtonUpdate = index => (btn) => {
+                btn.textContent = pages[index];
+
+                if (pages[index] === currentPage) {
+                    currentPageBtn.classList.remove('active');
+                    btn.classList.add('active');
+                    currentPageBtn = btn;
+                    currentPageBtn.focus();
+                }
+            };
+
+            buttons.set(
+                createAndSetupButton('start', 'start-page', disabled.start(), () => currentPage = 1),
+                (btn) => btn.disabled = disabled.start()
+            )
+
+            buttons.set(
+                createAndSetupButton('prev', 'prev-page', disabled.prev(), () => currentPage -= 1),
+                (btn) => btn.disabled = disabled.prev()
+            )
+
+            pages.map((pageNumber, index) => {
+                const isCurrentPage = currentPage === pageNumber;
+                const button = createAndSetupButton(
+                    pageNumber, isCurrentPage ? 'active' : '', false, onPageButtonClick
+                );
+
+                if (isCurrentPage) {
+                    currentPageBtn = button;
+                }
+
+                buttons.set(button, onPageButtonUpdate(index));
+            });
+
+            buttons.set(
+                createAndSetupButton('next', 'next-page', disabled.next(), () => currentPage += 1),
+                (btn) => btn.disabled = disabled.next()
+            )
+
+            buttons.set(
+                createAndSetupButton('end', 'end-page', disabled.end(), () => currentPage = totalPages),
+                (btn) => btn.disabled = disabled.end()
+            )
+
+            buttons.forEach((_, btn) => frag.appendChild(btn));
+            paginationButtonContainer.appendChild(frag);
+
+            this.render = (container = document.getElementById("datable_1_paginate")) => {
+                //remove all existing child nodes from parent node
+                while (container.firstChild) {
+                    container.removeChild(container.firstChild);
+                }
+                container.appendChild(paginationButtonContainer);
+            }
+
+            this.update = (newPageNumber = currentPage) => {
+                currentPage = newPageNumber;
+                pages = pageNumbers(totalPages, maxPagesVisible, currentPage);
+                buttons.forEach((updateButton, btn) => updateButton(btn));
+            }
+
+            this.onChange = (handler) => {
+                paginationButtonContainer.addEventListener('change', handler);
+            }
+
+        }
+
+        // ********************************************************************************************************
+        function getPageCount(pages) {
+					var page_count = pages;
+					//console.log('page_count ' + page_count);
+					if (page_count <= 5) {
+						const paginationButtons = new PaginationButton(page_count, page_count);
+						paginationButtons.render();
+					} else {
+						const paginationButtons = new PaginationButton(page_count, 5);
+						paginationButtons.render();
+					}
+        }
+        // Pagination End -------------------------------------------------------------------------------------------
+
+        function searchProducts(page) {
+            var main_category_code = $('#main_category_code').val();
+            var category_code = $('#category_code').val();
+            var sub_category_code = $('#sub_category_code').val();
+            var product_code = $('#product').find(":selected").val();
+            var ecom_code = $('#ecom_code').val();
+            var proInnerHtml = '';
+
+            if(product_code){
+                console.log('search by product code')
+                $('#ecom_code').val('')
+                $('#main_category_code').val('Select Main Category');
+                $('#category_code').val('Select Category');
+                $('#sub_category_code').val('Select Sub Category');
+                $.ajax({
+                    url: 'http://app360dev-001-site5.dtempurl.com/api/ECommerce/Admin/EcomProduct/Search/OnlineAvailable?value='+product_code+'&filter=1&nextPage='+page+'&rowCount=12',
+                    type: 'GET',
+                    headers: {
+                        Authorization: 'Bearer ' + '<%=current_user.auth.token%>'
+                    },
+                    success: function (res) { 
+                    if(res.status != "Fail"){       
+                        var page_count = Math.ceil(res.content.TotalCount / 12);
+                        getPageCount(page_count)
+                        var proObjects = res.content.List;                        
+                        if (proObjects != null) {
+                            proObjects.forEach(product => {
+
+                                var hidden = "";
+                                var style_class = ""
+                                var imgList = product.imageURLList;
+
+                                if (product.onlineAvailableStockCount > 0) {
+                                    hidden = '';
+                                    style_class = "badge badge-sm badge-outline badge-success"
+                                } else {
+                                    hidden = 'hidden';
+                                    style_class = ""
+                                }
+                                var create_date = moment.utc(product.createdDate).local().format('YYYY-MM-DD HH:mm a')
+
+                                proInnerHtml = proInnerHtml +
+                                '<tr>' +
+								'<td>'+
+                                '<div class="media align-items-center">'+
+								'<div class="media-head me-2">'+
+                                '<div class="avatar avatar-rounded">'+
+								'<img src="https://storage.googleapis.com/products_bucket_1/'+imgList[0]+'" alt="user" class="avatar-img">'+
+								'</div>'+
+								'</div>'+
+								'<div class="media-body">'+
+								'<div class="text-high-em">'+product.name+'</div>'+
+								'<div class="fs-7"><label style= "color: #007d88;" class="table-link-text link-medium-em">'+product.ecomCategoryName+' > '+product.ecomSubCategory1Name+' > '+product.ecomSubCategory2Name+'</label></div>'+ 
+                                '<span class="'+style_class+' badge-wth-indicator badge-wth-icon ms-3 d-lg-inline-block d-none" style="margin: 0px !important;"><span '+hidden+'><i class="badge-dot ri-checkbox-blank-circle-fill"></i>Online Available</span></span>'+
+                                '</div>'+
+								'</div>'+
+                                '</td>' +
+								'<td>' + product.packSize + '</td>' +
+								'<td>' + product.currentStock + '</td>' +
+								// '<td>' + product.unitSellingPrice + '</td>' +
+                                '<td>' + create_date + '</td>' +
+								'<td>' +
+								'<div class="d-flex align-items-center">' +
+								'<div class="d-flex" style="padding-left: 40px;">' +
+                                '<a target="_blank" href="/stock/stock_info/' + product.posProductCode + '" type="button" class="btn btn-sm btn-primary"><i class="icon" data-icon="j"></i></a>' +
+								'</div>' +
+								'</div>' +
+								'</td>' +
+								'</tr>';
+
+                            })
+                        } 
+                    }else{
+                        proInnerHtml = '<tr><td></td><td></td><td><center><span style="color:gray; font-size:18px; font-family: Trirong;">' + res.message + ' ...' + '</span></center></td><td></td><td></td><td></td></tr>';                      
+                    }
+                           
+                        document.getElementById('search_list').innerHTML = proInnerHtml;
+                    }
+                })
+            } else if (ecom_code) { 
+                console.log('search by ecom code')
+                $.ajax({
+                    url: 'http://app360dev-001-site5.dtempurl.com/api/ECommerce/Admin/EcomProduct/Search/OnlineAvailable?value='+ecom_code+'&filter=2&nextPage='+page+'&rowCount=12',
+                    type: 'GET',
+                    headers: {
+                        Authorization: 'Bearer ' + '<%=current_user.auth.token%>'
+                    },
+                    success: function (res) { 
+                    if(res.status != "Fail"){       
+                        var page_count = Math.ceil(res.content.TotalCount / 12);
+                        getPageCount(page_count)
+                        var proObjects = res.content.List;                        
+                        if (proObjects != null) {
+                            proObjects.forEach(product => {
+
+                                var hidden = "";
+                                var style_class = ""
+                                var imgList = product.imageURLList;
+
+                                if (product.onlineAvailableStockCount > 0) {
+                                    hidden = '';
+                                    style_class = "badge badge-sm badge-outline badge-success"
+                                } else {
+                                    hidden = 'hidden';
+                                    style_class = ""
+                                }
+                                var create_date = moment.utc(product.createdDate).local().format('YYYY-MM-DD HH:mm a')
+
+                                proInnerHtml = proInnerHtml +
+                                '<tr>' +
+								'<td>'+
+                                '<div class="media align-items-center">'+
+								'<div class="media-head me-2">'+
+                                '<div class="avatar avatar-rounded">'+
+								'<img src="https://storage.googleapis.com/products_bucket_1/'+imgList[0]+'" alt="user" class="avatar-img">'+
+								'</div>'+
+								'</div>'+
+								'<div class="media-body">'+
+								'<div class="text-high-em">'+product.name+'</div>'+
+								'<div class="fs-7"><label style= "color: #007d88;" class="table-link-text link-medium-em">'+product.ecomCategoryName+' > '+product.ecomSubCategory1Name+' > '+product.ecomSubCategory2Name+'</label></div>'+ 
+                                '<span class="'+style_class+' badge-wth-indicator badge-wth-icon ms-3 d-lg-inline-block d-none" style="margin: 0px !important;"><span '+hidden+'><i class="badge-dot ri-checkbox-blank-circle-fill"></i>Online Available</span></span>'+
+                                '</div>'+
+								'</div>'+
+                                '</td>' +
+								'<td>' + product.packSize + '</td>' +
+								'<td>' + product.currentStock + '</td>' +
+								// '<td>' + product.unitSellingPrice + '</td>' +
+                                '<td>' + create_date + '</td>' +
+								'<td>' +
+								'<div class="d-flex align-items-center">' +
+								'<div class="d-flex" style="padding-left: 40px;">' +
+                                '<a target="_blank" href="/stock/stock_info/' + product.posProductCode + '" type="button" class="btn btn-sm btn-primary"><i class="icon" data-icon="j"></i></a>' +
+								'</div>' +
+								'</div>' +
+								'</td>' +
+								'</tr>';
+
+                            })
+                        } 
+                    }else{
+                        proInnerHtml = '<tr><td></td><td></td><td><center><span style="color:gray; font-size:18px; font-family: Trirong;">' + res.message + ' ...' + '</span></center></td><td></td><td></td><td></td></tr>';                      
+                    }
+                           
+                        document.getElementById('search_list').innerHTML = proInnerHtml;
+                    }
+                })
+            } else if (sub_category_code != null) {
+                console.log('search by sub category')
+                $.ajax({
+                    url: 'http://app360dev-001-site5.dtempurl.com/api/ECommerce/Admin/EcomSubCategory2/Products?Code='+sub_category_code+'&nextPage='+page+'&rowCount=12',
+                    type: 'GET',
+                    headers: {
+                        Authorization: 'Bearer ' + '<%=current_user.auth.token%>'
+                    },
+                    success: function (res) { 
+                    if(res.status != "Fail"){       
+                        var page_count = Math.ceil(res.content.TotalCount / 12);
+                        getPageCount(page_count)
+                        var proObjects = res.content.List;                        
+                        if (proObjects != null) {
+                            proObjects.forEach(product => {
+
+                                var hidden = "";
+                                var style_class = ""
+                                var imgList = product.imageURLList;
+
+                                if (product.onlineAvailableStockCount > 0) {
+                                    hidden = '';
+                                    style_class = "badge badge-sm badge-outline badge-success"
+                                } else {
+                                    hidden = 'hidden';
+                                    style_class = ""
+                                }
+                                var create_date = moment.utc(product.createdDate).local().format('YYYY-MM-DD HH:mm a')
+
+                                proInnerHtml = proInnerHtml +
+                                '<tr>' +
+								'<td>'+
+                                '<div class="media align-items-center">'+
+								'<div class="media-head me-2">'+
+                                '<div class="avatar avatar-rounded">'+
+								'<img src="https://storage.googleapis.com/products_bucket_1/'+imgList[0]+'" alt="user" class="avatar-img">'+
+								'</div>'+
+								'</div>'+
+								'<div class="media-body">'+
+								'<div class="text-high-em">'+product.name+'</div>'+
+								'<div class="fs-7"><label style= "color: #007d88;" class="table-link-text link-medium-em">'+product.ecomCategoryName+' > '+product.ecomSubCategory1Name+' > '+product.ecomSubCategory2Name+'</label></div>'+ 
+                                '<span class="'+style_class+' badge-wth-indicator badge-wth-icon ms-3 d-lg-inline-block d-none" style="margin: 0px !important;"><span '+hidden+'><i class="badge-dot ri-checkbox-blank-circle-fill"></i>Online Available</span></span>'+
+                                '</div>'+
+								'</div>'+
+                                '</td>' +
+								'<td>' + product.packSize + '</td>' +
+								'<td>' + product.currentStock + '</td>' +
+								// '<td>' + product.unitSellingPrice + '</td>' +
+                                '<td>' + create_date + '</td>' +
+								'<td>' +
+								'<div class="d-flex align-items-center">' +
+								'<div class="d-flex" style="padding-left: 40px;">' +
+                                '<a target="_blank" href="/stock/stock_info/' + product.posProductCode + '" type="button" class="btn btn-sm btn-primary"><i class="icon" data-icon="j"></i></a>' +
+								'</div>' +
+								'</div>' +
+								'</td>' +
+								'</tr>';
+
+                            })
+                        } 
+                    }else{
+                        proInnerHtml = '<tr><td></td><td></td><td><center><span style="color:gray; font-size:18px; font-family: Trirong;">' + res.message + ' ...' + '</span></center></td><td></td><td></td><td></td></tr>';                      
+                    }
+                           
+                        document.getElementById('search_list').innerHTML = proInnerHtml;
+                    }
+                })
+            } else if (category_code != null) {
+                console.log('search by category')
+                $.ajax({
+                    url: 'http://app360dev-001-site5.dtempurl.com/api/ECommerce/Admin/EcomSubCategory1/Products?Code='+category_code+'&nextPage='+page+'&rowCount=12',                                                                                    
+                    type: 'GET',
+                    headers: {
+                        Authorization: 'Bearer ' + '<%=current_user.auth.token%>'
+                    },
+                    success: function (res) {
+                        //console.log(res);
+
+                    if(res.status != "Fail"){   
+                        var proObjects = res.content.List;
+                        var page_count = Math.ceil(res.content.TotalCount / 12);
+                        getPageCount(page_count)
+                        if (proObjects != null) {
+                            proObjects.forEach(product => {
+
+                                var hidden = "";
+                                var style_class = ""
+                                var imgList = product.imageURLList;
+
+                                if (product.onlineAvailableStockCount > 0) {
+                                    hidden = '';
+                                    style_class = "badge badge-sm badge-outline badge-success"
+                                } else {
+                                    hidden = 'hidden';
+                                    style_class = ""
+                                }
+                                var create_date = moment.utc(product.createdDate).local().format('YYYY-MM-DD HH:mm a')
+
+                                proInnerHtml = proInnerHtml +
+                                '<tr>' +
+								'<td>'+
+                                '<div class="media align-items-center">'+
+								'<div class="media-head me-2">'+
+                                '<div class="avatar avatar-rounded">'+
+								'<img src="https://storage.googleapis.com/products_bucket_1/'+imgList[0]+'" alt="user" class="avatar-img">'+
+								'</div>'+
+								'</div>'+
+								'<div class="media-body">'+
+								'<div class="text-high-em">'+product.name+'</div>'+
+								'<div class="fs-7"><label style= "color: #007d88;" class="table-link-text link-medium-em">'+product.ecomCategoryName+' > '+product.ecomSubCategory1Name+' > '+product.ecomSubCategory2Name+'</label></div>'+ 
+                                '<span class="'+style_class+' badge-wth-indicator badge-wth-icon ms-3 d-lg-inline-block d-none" style="margin: 0px !important;"><span '+hidden+'><i class="badge-dot ri-checkbox-blank-circle-fill"></i>Online Available</span></span>'+
+                                '</div>'+
+								'</div>'+
+                                '</td>' +
+								'<td>' + product.packSize + '</td>' +
+								'<td>' + product.currentStock + '</td>' +
+								// '<td>' + product.unitSellingPrice + '</td>' +
+                                '<td>' + create_date + '</td>' +
+								'<td>' +
+								'<div class="d-flex align-items-center">' +
+								'<div class="d-flex" style="padding-left: 40px;">' +
+                                '<a target="_blank" href="/stock/stock_info/' + product.posProductCode + '" type="button" class="btn btn-sm btn-primary"><i class="icon" data-icon="j"></i></a>' +
+								'</div>' +
+								'</div>' +
+								'</td>' +
+								'</tr>';
+                                   
+                            })
+                        } 
+                    }else {
+                        proInnerHtml = '<tr><td></td><td></td><td><center><span style="color:gray; font-size:18px; font-family: Trirong;">' + res.message + ' ...' + '</span></center></td><td></td><td></td><td></td></tr>'; 
+                    }
+                        document.getElementById('search_list').innerHTML = proInnerHtml;
+                    }
+                })
+            } else if (main_category_code != null) {
+                console.log('search by main category')
+                $.ajax({
+                    url: 'http://app360dev-001-site5.dtempurl.com/api/ECommerce/Admin/EcomCategory/Products?Code='+main_category_code+'&nextPage='+page+'&rowCount=12',
+                    type: 'GET',
+                    headers: {
+                        Authorization: 'Bearer ' + '<%=current_user.auth.token%>'
+                    },
+                    success: function (res) {
+                        //console.log(res);
+                    if(res.status != "Fail"){   
+                        var proObjects = res.content.List;
+                        var page_count = Math.ceil(res.content.TotalCount / 12);
+                        getPageCount(page_count)                     
+                        if (proObjects != null) {
+                            proObjects.forEach(product => {
+
+                                var hidden = "";
+                                var style_class = ""
+                                var imgList = product.imageURLList;
+
+                                if (product.onlineAvailableStockCount > 0) {
+                                    hidden = '';
+                                    style_class = "badge badge-sm badge-outline badge-success"
+                                } else {
+                                    hidden = 'hidden';
+                                    style_class = ""
+                                }
+                                var create_date = moment.utc(product.createdDate).local().format('YYYY-MM-DD HH:mm a')
+
+                                proInnerHtml = proInnerHtml +
+                                '<tr>' +
+								'<td>'+
+                                '<div class="media align-items-center">'+
+								'<div class="media-head me-2">'+
+                                '<div class="avatar avatar-rounded">'+
+								'<img src="https://storage.googleapis.com/products_bucket_1/'+imgList[0]+'" alt="user" class="avatar-img">'+
+								'</div>'+
+								'</div>'+
+								'<div class="media-body">'+
+								'<div class="text-high-em">'+product.posProductCode+' : '+ product.name +'</div>'+
+								'<div class="fs-7"><label style= "color: #007d88;" class="table-link-text link-medium-em">'+product.ecomCategoryName+' > '+product.ecomSubCategory1Name+' > '+product.ecomSubCategory2Name+'</label></div>'+ 
+                                '<span class="'+style_class+' badge-wth-indicator badge-wth-icon ms-3 d-lg-inline-block d-none" style="margin: 0px !important;"><span '+hidden+'><i class="badge-dot ri-checkbox-blank-circle-fill"></i>Online Available</span></span>'+
+                                '</div>'+
+                                '</div>'+
+                                '</td>' +
+								'<td>' + product.packSize + '</td>' +
+								'<td>' + product.currentStock + '</td>' +
+								// '<td>' + product.unitSellingPrice + '</td>' +
+                                '<td>' + create_date + '</td>' +
+								'<td>' +
+								'<div class="d-flex align-items-center">' +
+								'<div class="d-flex" style="padding-left: 40px;">' +
+                                '<a target="_blank" href="/stock/stock_info/' + product.posProductCode + '" type="button" class="btn btn-sm btn-primary"><i class="icon" data-icon="j"></i></a>' +
+								'</div>' +
+								'</div>' +
+								'</td>' +
+								'</tr>';
+                            })
+                        } 
+                    }else {
+                        proInnerHtml = '<tr><td></td><td></td><td><center><span style="color:gray; font-size:18px; font-family: Trirong;">' + res.message + ' ...' + '</span></center></td><td></td><td></td><td></td></tr>'; 
+                    }
+                        document.getElementById('search_list').innerHTML = proInnerHtml;
+                    }
+                })
+            }
+
+        }
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,321 @@
+<!doctype html>
+<html class="no-js" lang="zxx">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Admin Home</title>
+    <meta name="robots" content="noindex, follow" />
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Place favicon.png in the root directory -->
+    <link rel="shortcut icon" href="img/icon.png" type="image/x-icon" />
+    <!-- Font Icons css -->
+    <link rel="stylesheet" href="/css/font-icons.css">
+    <!-- plugins css -->
+    <link rel="stylesheet" href="/css/plugins.css">
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- Responsive css -->
+    <link rel="stylesheet" href="/css/responsive.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Trirong">
+
+    <!-- Bootstrap CSS -->
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
+    <!-- DATATABLE -->
+    <link type="text/css" rel="stylesheet" href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css">
+
+
+</head>
+
+<style>
+    body {
+        font-family: "Trirong", serif;
+        font-size: 14px;
+    }
+
+    .btn {
+        padding: 8px 5px 5px 5px;
+        width: 100px;
+    }
+
+    .card {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        transition: 0.3s;
+        padding: 20px;
+    }
+
+    .card:hover {
+        box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    }
+
+    hr {
+        margin-top: 0;
+        margin-bottom: 40px;
+    }
+
+    .page-item.active .page-link {
+        background-color: #0A9A73;
+        border-color: #0A9A73;
+    }
+
+    .page-link {
+        color: #0A9A73;
+    }
+
+    #mytable_length label {
+        content-visibility: hidden;
+    }
+
+    .badge_active {
+        background-color: #0A9A73;
+        padding: 2px 10px 2px 10px;
+        border-radius: 10px;
+        color: aliceblue;
+        font-family: inherit;
+        font-size: 12px;
+    }
+
+    .badge_deactive{
+        background-color: #ca0b0b;
+        padding: 2px 10px 2px 10px;
+        border-radius: 10px;
+        color: aliceblue;
+        font-family: inherit;
+        font-size: 12px;
+    }
+
+    .badge_text {
+        background-color: #727776;
+        padding: 2px 10px 2px 10px;
+        border-radius: 10px;
+        color: aliceblue;
+        font-family: inherit;
+        font-size: 14px;
+    }
+</style>
+
+<body style="font-size: 15px;">
+
+    <!-- Body main wrapper start -->
+    <div class="body-wrapper">
+
+        <%- include('includes/header.ejs'); %>
+
+            <div class="ltn__utilize-overlay"></div>
+
+
+            <div class="ltn__form-box contact-form-box section-bg-1">
+
+                <div class="card">
+                    <h4 class="title-2">My Account</h4>
+
+                    <form id="contact-form" action="/profile/edit" method="post">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6">
+                                <div class="input-item input-item-textarea ltn__custom-icon">
+                                    <input type="text" name="category_name" placeholder="Category Name" style="font-family: inherit;">
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6">
+                                <div class="input-item input-item-textarea ltn__custom-icon">
+                                    <input type="text" name="category_name" placeholder="Category Name" style="font-family: inherit;">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="btn-wrapper mt-0">
+                            <button class="btn theme-btn-1 btn-effect-1 text-uppercase" type="submit" style="float: right;">UPDATE</button>
+                        </div>
+                        <p class="form-messege mb-0 mt-20"></p>
+                    </form>
+
+                </div>
+
+            </div>
+
+
+            <%- include('includes/footer.ejs'); %>
+
+    </div>
+    <!-- Body main wrapper end -->
+
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <!-- DATATABLE -->
+    <script type="text/JavaScript" src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script>
+    <script type="text/JavaScript" src="https://cdn.datatables.net/1.10.18/js/dataTables.bootstrap4.min.js"></script>
+
+
+    <!-- All JS Plugins -->
+    <!-- <script src="/js/nice-select.js"></script> -->
+    <!-- <script src="/js/plugins.js"></script> -->
+    <!-- Main JS -->
+    <script src="/js/main.js"></script>
+
+    <!--Sweetalert-->
+    <script src="/sweetalert/dist/sweetalert2.all.min.js"></script>
+    <script src="/sweetalert/dist/sweetalert2.min.js"></script>
+
+    <script>
+
+        $(document).ready(function () {
+
+            $("#mytable").dataTable();
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const error_msg = urlParams.get('error_msg');
+            const success_msg = urlParams.get('success_msg');
+            const delete_msg = urlParams.get('delete_msg');
+
+            if (delete_msg === '1') {
+                toastrTrigger('Category deleted successfully.');
+            }
+
+            if (error_msg === 'ERROR: Please fill required fields.') {
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'bottom-end',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                })
+                Toast.fire({
+                    icon: 'error',
+                    title: error_msg
+                }).then((result) => {
+                    if (result.dismiss === Swal.DismissReason.timer) {
+                        window.location.href = window.location.pathname;
+                    }
+                })
+            }
+
+            if (success_msg.length > 0) {
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'bottom-end',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+
+                    }
+                })
+                Toast.fire({
+                    icon: 'success',
+                    title: success_msg
+                }).then((result) => {
+                    if (result.dismiss === Swal.DismissReason.timer) {
+                        window.location.href = window.location.pathname;
+                    }
+                })
+            }
+        });
+
+        function openDeleteModal(code) {
+            Swal.fire({
+                title: 'Are you sure',
+                text: 'you want to delete this category?',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, Delete it',
+                confirmButtonColor: '#0A9A73'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: 'http://kandyecommerce-001-site1.atempurl.com/api/ECommerce/EcomCategory1/'+code,
+                        type: 'PUT',
+                        headers: {
+                            Authorization: '<%=current_user.auth.token%>'
+                        },
+                        success: function (res) {
+                            //console.log('Delete it');
+                            //console.log(res);
+                            window.location.href = window.location.pathname + '?delete_msg=1';
+                        }
+                    })
+
+                }
+            })
+
+        }
+
+        function toastrTrigger(message, title, type) {
+            //console.log('in toastrTrigger');
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'bottom-end',
+                showConfirmButton: false,
+                timer: 5000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
+            Toast.fire({
+                icon: 'success',
+                title: message
+            })
+        }
+
+        function openUpdateModal(value) {
+            let code = value.split(':')[0];
+            let name = value.split(':')[1];
+            let main_cat = value.split(':')[2];
+            //console.log(main_cat)
+            $(".modal-body #catCode").val(code);
+            $(".modal-body #catName").val(name);
+            $(".modal-body #main").text(main_cat);
+            $('#modalUpdate').modal('show');
+        }
+
+        function clickUpdate() {
+            var code = $(".modal-body #catCode").val();
+            var changed_name = $(".modal-body #catName").val();
+            $("#btnSubmit").attr("href", "/category/update/" + code + "&" + changed_name);
+        }
+    </script>
+
+    <!-- Update Modal -->
+    <div class="modal fade" id="modalUpdate" role="dialog">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="ltn__quick-view-modal-inner"
+                        style="border: 1px #f1e3e3 solid; padding: 20px; border-radius: 10px;">
+                        <div class="modal-product-item">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="modal-product-info">
+                                        <h5>Update Category</h5>
+                                        <input type="hidden" name="catCode" id="catCode" />
+                                        <label>Main Category :&nbsp;&nbsp;<span class="badge_text" id="main"></span>
+                                        <hr style="margin: 8px;">
+                                        <input type="text" name="catName" id="catName" style="font-family: inherit; font-size: 14px;"/>
+                                        <a href="" id="btnSubmit" class="theme-btn-1 btn btn-effect-1"
+                                            onclick="clickUpdate();">Update</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Update Modal -->
+
+
+</body>
+
+</html>

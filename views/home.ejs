@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<!-- 
+Jampack
+Author: Hencework
+Contact: contact@hencework.com
+-->
+<html lang="en">
+
+<head>
+    <!-- Meta Tags -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel | Home</title>
+    <meta name="description"
+        content="A modern CRM Dashboard Template with reusable and flexible components for your SaaS web applications by hencework. Based on Bootstrap." />
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/dist/img/favicon.png">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+
+    <!-- Daterangepicker CSS -->
+    <link href="vendors/daterangepicker/daterangepicker.css" rel="stylesheet" type="text/css" />    
+    <!-- Bootstrap Dropify CSS -->
+    <link href="/vendors/dropify/dist/css/dropify.min.css" rel="stylesheet" type="text/css" />
+    <!-- select2 CSS -->
+    <link href="/vendors/select2/dist/css/select2.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Data Table CSS -->
+    <link href="vendors/datatables.net-bs5/css/dataTables.bootstrap5.min.css" rel="stylesheet" type="text/css" />
+    <link href="vendors/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css" rel="stylesheet"
+        type="text/css" />
+
+    <!-- CSS -->
+    <link href="dist/css/style.css" rel="stylesheet" type="text/css">
+        <!-- Toastr  -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet" />
+    
+        <style>
+            /* Pagination Styles  */
+            html,
+            body {
+                height: 100%;
+            }
+    
+            *,
+            *::after,
+            *::before {
+                box-sizing: border-box;
+            }
+    
+            button {
+                background: none;
+                appearance: none;
+                -webkit-appearance: none;
+                -ms-appearance: none;
+                -moz-appearance: none;
+                border: none;
+                cursor: pointer;
+            }
+    
+            .page-btn {
+                background: transparent;
+                color: rgb(138, 135, 135);
+                min-height: 35px;
+                min-width: 30px;
+                border-radius: 5px;
+                padding: 0px 10px 0px 10px;
+                text-transform: uppercase;
+                letter-spacing: 0.1em;
+                transition: background 0.3s ease;
+                margin: 0 5px;
+                border: 1px rgb(223, 221, 221) solid;
+                font-family: inherit;
+                font-weight: bold;
+            }
+    
+            .page-btn:first-of-type {
+                margin-left: 0;
+            }
+    
+            .page-btn:last-of-type {
+                margin-right: 0;
+            }
+    
+            .pagination-buttons {
+                display: flex;
+                align-items: center;
+            }
+    
+            .page-btn[class*="-page"] {
+                background: rgb(218, 216, 216);
+                font-size: 1.0em;
+                font-weight: bold;
+            }
+    
+            .page-btn.active {
+                background: #007D88;
+                color: #fff;
+            }
+    
+            .page-btn[disabled] {
+                opacity: 0.5;
+            }
+    
+            .page-btn:hover {
+                background: #007D88;
+                color: #fff;
+            }
+    
+    
+            /* TOGGLR BUTTON STYLES  */
+            /* The switch - the box around the slider */
+            .switch {
+                position: relative;
+                display: inline-block;
+                width: 50px;
+                height: 24px;
+            }
+    
+            /* Hide default HTML checkbox */
+            .switch input {
+                opacity: 0;
+                width: 0;
+                height: 0;
+            }
+    
+            /* The slider */
+            .slider {
+                position: absolute;
+                cursor: pointer;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: #ccc;
+                -webkit-transition: .4s;
+                transition: .4s;
+            }
+    
+            .slider:before {
+                position: absolute;
+                content: "";
+                height: 16px;
+                width: 16px;
+                left: 4px;
+                bottom: 4px;
+                background-color: white;
+                -webkit-transition: .4s;
+                transition: .4s;
+            }
+    
+            input:checked+.slider {
+                background-color: #007D88;
+            }
+    
+            input:focus+.slider {
+                box-shadow: 0 0 1px #007D88;
+            }
+    
+            input:checked+.slider:before {
+                -webkit-transform: translateX(26px);
+                -ms-transform: translateX(26px);
+                transform: translateX(26px);
+            }
+    
+            /* Rounded sliders */
+            .slider.round {
+                border-radius: 34px;
+            }
+    
+            .slider.round:before {
+                border-radius: 50%;
+            }
+            /* TOGGLR BUTTON STYLES  */
+    
+            .checkbox-inline input[type="checkbox"],
+            .checkbox-inline label {
+                display: inline-block;
+                margin-right: 10px;
+            }
+    
+        </style>
+</head>
+
+<body>
+    <!-- Wrapper -->
+    <div class="hk-wrapper" data-layout="vertical" data-layout-style="default" data-menu="light" data-footer="simple">
+        <!-- /Header -->
+        <%- include('includes/header.ejs'); %>
+
+            <!-- Vertical Nav -->
+            <div class="hk-menu">
+                <!-- Brand -->
+                <div class="menu-header">
+                    <span>
+                        <a class="navbar-brand" href="/home">
+                            <img class="brand-img img-fluid" src="/dist/img/icon.png" width="45" height="70" alt="Logo" style="padding-bottom: 10px; padding-top: 15px;"/>
+                            <span style="font-family: 'Barlow',sans-serif; font-size: 15px; font-weight: bold;padding-left: 5px;">KANDY PHARMACY</span>
+                        </a>
+                        <button class="btn btn-icon btn-rounded btn-flush-dark flush-soft-hover navbar-toggle">
+                            <span class="icon">
+                                <span class="svg-icon fs-5">
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                        class="icon icon-tabler icon-tabler-arrow-bar-to-left" width="24" height="24"
+                                        viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                        <line x1="10" y1="12" x2="20" y2="12"></line>
+                                        <line x1="10" y1="12" x2="14" y2="16"></line>
+                                        <line x1="10" y1="12" x2="14" y2="8"></line>
+                                        <line x1="4" y1="4" x2="4" y2="20"></line>
+                                    </svg>
+                                </span>
+                            </span>
+                        </button>
+                    </span>
+                </div>
+                <!-- /Brand -->
+
+                <!-- /Navbar -->
+                <%- include('includes/navbar.ejs'); %>
+            </div>
+            <div id="hk_menu_backdrop" class="hk-menu-backdrop"></div>
+            <!-- /Vertical Nav -->
+
+
+            <!-- Main Content -->
+            <div class="hk-pg-wrapper">
+                <div class="container-xxl">
+                    <!-- Page Header -->
+                    <div class="hk-pg-header pg-header-wth-tab pt-7">
+                        <div class="d-flex">
+                            <div class="d-flex flex-wrap justify-content-between flex-1">
+                                <div class="mb-lg-0 mb-2 me-8">
+                                    <h1 class="pg-title">Admin Dashboard</h1>
+                                    <!-- <p>Create pages using a variety of features that leverage jampack components</p> -->
+                                </div>
+                                <!-- <div class="pg-header-action-wrap">
+                                    <div class="input-group w-300p">
+                                        <span class="input-affix-wrapper">
+                                            <span class="input-prefix"><span class="feather-icon"><i
+                                                        data-feather="calendar"></i></span></span>
+                                            <input class="form-control form-wth-icon" name="datetimes"
+                                                value="Aug 18,2020 - Aug 19, 2020">
+                                        </span>
+                                    </div>
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /Page Header -->
+
+                    <!-- Page Body -->
+                    <div class="hk-pg-body">
+                        <div class="tab-content">
+                            <div class="tab-pane fade show active" id="tab_block_1">
+                                <div class="row">
+                                    <div class="col-md-12 mb-md-4 mb-3">
+                                        <div class="card card-border mb-0 h-100">
+                                            <div class="card-header card-header-action">
+                                                <h6>Customer Orders
+                                                    <!-- <span class="badge badge-sm badge-light ms-1">240</span> -->
+                                                </h6>
+                                            </div>
+                                            <div class="card-body">
+                                                
+                                                    <div class="checkbox-inline" style="margin-left: 25px;">
+                                                        <input type="checkbox" class="form-check-input" id="check_allorders" name="check_filters" onclick="applyFilterations()" checked style="margin-top: 10px;">
+                                                        <label for="option1">All Orders</label>
+                                                      
+                                                        <input type="checkbox" class="form-check-input" id="check_cash" name="check_filters" onclick="applyFilterations()" style="margin-top: 10px;">
+                                                        <label for="option2">Cash on Delivery</label>
+                                                      
+                                                        <input type="checkbox" class="form-check-input" id="check_card" name="check_filters" onclick="applyFilterations()" style="margin-top: 10px;">
+                                                        <label for="option3">Card Payments</label>
+                    
+                                                        &nbsp;&nbsp;&nbsp;
+                                                        <select class="form-select" name="order_status" id="order_status" style="width: 200px; display: inline;" onchange="applyFilterations()">
+                                                            <option selected value="none">Order Status</option>
+                                                            <option value="Pending">Pending</option>
+                                                            <option value="Approved">Approved</option>
+                                                            <option value="Rejected">Rejected</option>
+                                                            <option value="Processed">Processed</option>
+                                                            <option value="Shipped">Shipped</option>
+                                                            <option value="Completed">Completed</option>
+                                                            <option value="Refund">Refund</option>
+                                                            <option value="Cancelled">Cancelled</option>
+                                                        </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    
+                                                        <select class="form-select" name="payment_status" id="payment_status" style="width: 200px; display: inline;" onchange="applyFilterations()">
+                                                            <option selected value="none">Payment Status</option>
+                                                            <option value="Pending">Pending</option>
+                                                            <option value="Paid">Paid</option>
+                                                            <option value="Refund">Refund</option>
+                                                        </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    
+                                                        <div class="card-body" style="display: inline; padding: 13px 10px 13px 5px; background: #bbbbbb; border-radius: 10px;">
+                                                            <input class="form-control" type="text" name="cus_mobile" id="cus_mobile" placeholder="Search by mobile ..." style="display: inline;width: 150px; font-size: 13px;"/>
+                                                                <a class="btn btn-icon btn-flush-dark btn-rounded flush-soft-hover" onclick="searchByMobile()">
+                                                                    <span class="svg-icon">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                                                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                                                                          </svg>
+                                                                    </span>
+                                                                </a>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                      <hr> 
+                                                    <div id="todo_collapse_1" class="collapse show">
+                                                        <div class="card-body">
+                                                            <div class="contact-list-view">
+                                                                <table class="table nowrap w-100 mb-5 table-bordered">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>Code</th>
+                                                                            <th>Order Details</th>
+                                                                            <th>Order Status</th>
+                                                                            <th>Payment Status</th>
+                                                                            <th>Method</th>
+                                                                            <!-- <th>Shipping Info</th> -->
+                                                                            <th style="text-align: center;">Action</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody id="search_list">
+                    
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                    
+                                                            <div class="dataTables_paginate paging_simple_numbers" id="datable_1_paginate"
+                                                                style="float: right;">
+                    
+                                                            </div>
+                                                            <br><br>
+                    
+                                                        </div>
+                                                    </div>
+                                                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /Page Body -->
+                </div>
+
+                <!-- Page Footer -->
+                <%- include('includes/footer.ejs'); %>
+
+            </div>
+            <!-- /Main Content -->
+    </div>
+    <!-- /Wrapper -->
+
+    <!-- jQuery -->
+    <script src="vendors/jquery/dist/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JS -->
+    <script src="vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- FeatherIcons JS -->
+    <script src="dist/js/feather.min.js"></script>
+
+    <!-- Fancy Dropdown JS -->
+    <script src="dist/js/dropdown-bootstrap-extended.js"></script>
+
+    <!-- Simplebar JS -->
+    <script src="vendors/simplebar/dist/simplebar.min.js"></script>
+
+    <!-- Data Table JS -->
+    <script src="vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="vendors/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script>
+    <script src="vendors/datatables.net-select/js/dataTables.select.min.js"></script>
+
+     <!-- Select2 JS -->
+     <script src="/vendors/select2/dist/js/select2.full.min.js"></script>
+     <script src="/dist/js/select2-data.js"></script>
+ 
+     <!-- Dropify JS -->
+     <script src="/vendors/dropify/dist/js/dropify.min.js"></script>
+     <script src="/dist/js/dropify-data.js"></script>
+
+    <!-- Daterangepicker JS -->
+    <script src="vendors/moment/min/moment.min.js"></script>
+    <script src="vendors/daterangepicker/daterangepicker.js"></script>
+    <script src="dist/js/daterangepicker-data.js"></script>
+
+    <!-- Amcharts Maps JS -->
+    <script src="vendors/@amcharts/amcharts4/core.js"></script>
+    <script src="vendors/@amcharts/amcharts4/maps.js"></script>
+    <script src="vendors/@amcharts/amcharts4-geodata/worldLow.js"></script>
+    <script src="vendors/@amcharts/amcharts4-geodata/worldHigh.js"></script>
+    <script src="vendors/@amcharts/amcharts4/themes/animated.js"></script>
+
+    <!-- Apex JS -->
+    <script src="vendors/apexcharts/dist/apexcharts.min.js"></script>
+
+    <!-- Init JS -->
+    <script src="dist/js/init.js"></script>
+    <script src="dist/js/chips-init.js"></script>
+    <script src="dist/js/dashboard-data.js"></script>
+
+        <!-- Toastr  -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
+
+        <script>
+            var status = "", paymentStatus = "", mobile = "", paymentMethod = "";
+    
+            // Pagination Start ---------------------------------------------------------------------------------------
+            window.onload = function () {
+                getPageCount("", "", "","");
+            }
+    
+            // ********************************************************************************************************
+            const pageNumbers = (total, max, current) => {
+                const half = Math.floor(max / 2);
+                let to = max;
+    
+                if (current + half >= total) {
+                    to = total;
+                } else if (current > half) {
+                    to = current + half;
+                }
+    
+                let from = to - max;
+                return Array.from({ length: max }, (_, i) => (i + 1) + from);
+            }
+    
+            // ********************************************************************************************************
+            function PaginationButton(totalPages, maxPagesVisible = 5, currentPage = 1) {
+                let pages = pageNumbers(totalPages, maxPagesVisible, currentPage);
+                let currentPageBtn = null;
+                const buttons = new Map();
+                const disabled = {
+                    start: () => pages[0] === 1,
+                    prev: () => currentPage === 1,
+                    end: () => pages.slice(-1)[0] === totalPages,
+                    next: () => currentPage === totalPages
+                }
+                const frag = document.createDocumentFragment();
+                const paginationButtonContainer = document.createElement('div');
+                paginationButtonContainer.className = 'dataTables_paginate paging_simple_numbers';
+    
+                //   default page loading 
+                paginationButtonContainer.value = currentPage;
+                filterOrders(currentPage); 
+    
+                const createAndSetupButton = (label = '', cls = '', disabled = false, handleClick) => {
+                    const buttonElement = document.createElement('button');
+                    if (label == 'prev') {
+                        buttonElement.innerHTML = '<i class="ri-arrow-left-s-line"></i>';
+                    }
+                    else if (label == 'next') {
+                        buttonElement.innerHTML = '<i class="ri-arrow-right-s-line"></i>';
+                    }
+                    else if (label == 'start') {
+                        buttonElement.innerHTML = '<i class="fas fa-angle-double-left"></i>';
+                    }
+                    else if (label == 'end') {
+                        buttonElement.innerHTML = '<i class="fas fa-angle-double-right"></i>';
+                    }
+                    else {
+                        buttonElement.textContent = label;
+                    }
+    
+                    buttonElement.className = `page-btn ${cls}`;
+                    buttonElement.disabled = disabled;
+                    buttonElement.addEventListener('click', e => {
+                        handleClick(e);
+                        this.update();
+                        paginationButtonContainer.value = currentPage;
+                        filterOrders(currentPage);
+                        paginationButtonContainer.dispatchEvent(new Event('change'));
+                    });
+    
+                    return buttonElement;
+                }
+    
+                const onPageButtonClick = e => currentPage = Number(e.currentTarget.textContent);
+    
+                const onPageButtonUpdate = index => (btn) => {
+                    btn.textContent = pages[index];
+    
+                    if (pages[index] === currentPage) {
+                        currentPageBtn.classList.remove('active');
+                        btn.classList.add('active');
+                        currentPageBtn = btn;
+                        currentPageBtn.focus();
+                    }
+                };
+    
+                buttons.set(
+                    createAndSetupButton('start', 'start-page', disabled.start(), () => currentPage = 1),
+                    (btn) => btn.disabled = disabled.start()
+                )
+    
+                buttons.set(
+                    createAndSetupButton('prev', 'prev-page', disabled.prev(), () => currentPage -= 1),
+                    (btn) => btn.disabled = disabled.prev()
+                )
+    
+                pages.map((pageNumber, index) => {
+                    const isCurrentPage = currentPage === pageNumber;
+                    const button = createAndSetupButton(
+                        pageNumber, isCurrentPage ? 'active' : '', false, onPageButtonClick
+                    );
+    
+                    if (isCurrentPage) {
+                        currentPageBtn = button;
+                    }
+    
+                    buttons.set(button, onPageButtonUpdate(index));
+                });
+    
+                buttons.set(
+                    createAndSetupButton('next', 'next-page', disabled.next(), () => currentPage += 1),
+                    (btn) => btn.disabled = disabled.next()
+                )
+    
+                buttons.set(
+                    createAndSetupButton('end', 'end-page', disabled.end(), () => currentPage = totalPages),
+                    (btn) => btn.disabled = disabled.end()
+                )
+    
+                buttons.forEach((_, btn) => frag.appendChild(btn));
+                paginationButtonContainer.appendChild(frag);
+    
+                this.render = (container = document.getElementById("datable_1_paginate")) => {
+                     //remove all existing child nodes from parent node
+                     while (container.firstChild) {
+                        container.removeChild(container.firstChild);
+                    }
+                    container.appendChild(paginationButtonContainer);
+                }
+    
+                this.update = (newPageNumber = currentPage) => {
+                    //console.log('in update ' +currentPage)
+                    currentPage = newPageNumber;
+                    pages = pageNumbers(totalPages, maxPagesVisible, currentPage);
+                    buttons.forEach((updateButton, btn) => updateButton(btn));
+                }
+    
+                this.onChange = (handler) => {
+                    paginationButtonContainer.addEventListener('change', handler);
+                }
+    
+            }
+    
+            // ********************************************************************************************************
+            function getPageCount(mobile, status, paymentStatus, paymentMethod) {
+                //console.log("in page count method...")
+                //console.log(mobile, status, paymentStatus, paymentMethod)
+                // get stock count 
+                $.ajax({
+                    url: 'http://app360dev-001-site5.dtempurl.com/api/ECommerce/Admin/CustomerOrder/Select/Filter/Status?nextPage=1&rowCount=12&customerPhone='+mobile+'&status='+status+'&paymentStatus='+paymentStatus+'&paymentMethod='+paymentMethod,
+                    type: 'GET',
+                    headers: {
+                        Authorization: 'Bearer ' + '<%=current_user.auth.token%>'
+                    },
+                    success: function (res) {
+                        //console.log(res)
+                        if(res.status == "Success"){
+                            mobile = ""
+                            var page_count = Math.ceil(res.content.TotalCount / 12);
+                            //console.log('records: ' + res.content.TotalCount);
+                            //console.log('page_count: ' + page_count);
+                            if (page_count <= 5) {
+                                const paginationButtons = new PaginationButton(page_count, page_count);
+                                paginationButtons.render();
+                            } else {
+                                const paginationButtons = new PaginationButton(page_count, 5);
+                                paginationButtons.render();
+                            }
+                        }else{
+                            mobile = ""
+                            document.getElementById('search_list').innerHTML = '<tr><td></td><td></td><td><center><span style="color:gray; font-size:18px; font-family: Trirong;">'+res.message+'.</span></center></td><td></td><td></td><td></td></tr>';
+                        }
+                       
+                    }
+                });
+            }
+            // Pagination End -------------------------------------------------------------------------------------------
+    
+            function applyFilterations(){
+                $('#check_allorders').click(function() {
+                    //console.log('all orders')
+                    document.getElementById('check_allorders').checked = true;
+                    document.getElementById('check_cash').checked = false;
+                    document.getElementById('check_card').checked = false;
+                    $("#order_status").val("none").trigger("chosen:updated");
+                    $("#payment_status").val("none").trigger("chosen:updated");
+                    getPageCount(mobile, status, paymentStatus, paymentMethod) 
+                });
+                if (document.getElementById('check_cash').checked && document.getElementById('check_card').checked){
+    
+                }
+                else if (document.getElementById('check_cash').checked){
+                    paymentMethod = "cash"
+                    document.getElementById('check_cash').checked = true; 
+                    document.getElementById('check_allorders').checked = false;
+                    document.getElementById('check_card').checked = false;
+                }
+                else if (document.getElementById('check_card').checked){
+                    paymentMethod = "card"
+                    document.getElementById('check_card').checked = true;
+                    document.getElementById('check_allorders').checked = false;
+                    document.getElementById('check_cash').checked = false;            
+                }
+    
+                $('#order_status option').each(function() {
+                    if($(this).is(':selected')){
+                        document.getElementById('check_allorders').checked = false;
+                        if($("#order_status option:selected").val() != "none"){
+                            status = $("#order_status option:selected").val();
+                        }else{
+                            status = ""
+                        }                    
+                    }
+                })
+                $('#payment_status option').each(function() {
+                    if($(this).is(':selected')){
+                        document.getElementById('check_allorders').checked = false;
+                        if($("#payment_status option:selected").val() != "none"){
+                            paymentStatus = $("#payment_status option:selected").val();
+                        }else{
+                            paymentStatus = ""
+                        }
+                    }
+                })
+                // //console.log(mobile, status, paymentStatus)
+                getPageCount(mobile, status, paymentStatus, paymentMethod) 
+            }
+    
+            function searchByMobile(){
+                document.getElementById('check_allorders').checked = false;
+                if($("#cus_mobile").val() == ""){
+                    //console.log('empty')
+                    mobile = ""
+                }else{
+                    //console.log('have')
+                    mobile = $("#cus_mobile").val()
+                }
+                       
+                //console.log(mobile)
+                getPageCount(mobile, status, paymentStatus, paymentMethod) 
+            }
+           
+            function filterOrders(page) {   
+               //console.log("Call filterOrders - page: "+page)         
+               var orderInnerHtml = '';
+               $.ajax({
+                    url: 'http://app360dev-001-site5.dtempurl.com/api/ECommerce/Admin/CustomerOrder/Select/Filter/Status?nextPage='+page+'&rowCount=12&customerPhone='+mobile+'&status='+status+'&paymentStatus='+paymentStatus+'&paymentMethod='+paymentMethod,
+                    type: 'GET',
+                    headers: {
+                        Authorization: 'Bearer ' + '<%=current_user.auth.token%>'
+                    },
+                    success: function (res) {
+                        if(res.status != "Fail"){ 
+                            mobile = ""
+                            // //console.log("res.content.List.length: "+res.content.List.length)
+                            var orderObjects = res.content.List;                        
+                            if (orderObjects != null) {                           
+                                orderObjects.forEach(order => {
+                                   
+                                    orderInnerHtml = orderInnerHtml +
+                                    '<tr>' +
+                                    '<td>' + order.orderCode + '</td>' +
+                                    '<td>'+
+                                    '<div class="media align-items-center">'+
+                                    '<div class="media-head me-2">'+                                              
+                                    '</div>'+
+                                    '<div class="media-body">'+
+                                    // '<div class="fs-7"><label style="width: 100px;">Order Code </label><label style= "color: #007d88;" class="table-link-text link-medium-em">'+ order.orderCode +'</label></div>'+ 
+                                    '<div class="fs-7"><label style="width: 100px;">Sub Total </label><label style= "color: #007d88;" class="table-link-text link-medium-em">'+ order.subTotal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) +'</label></div>'+ 
+                                    '<div class="fs-7"><label style="width: 100px;">Shipping Fee </label><label style= "color: #007d88;" class="table-link-text link-medium-em">'+ order.shippingFees.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) +'</label></div>'+ 
+                                    '<div class="fs-7"><label style="width: 100px;">Discount </label><label style= "color: #007d88;" class="table-link-text link-medium-em">'+ order.totalDiscount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) +'</label></div>'+ 
+                                    '<div class="fs-7"><label style="width: 100px; font-weight:bold;">Total </label><label style= "color: #007d88;font-weight:bold;" class="table-link-text link-medium-em">'+ order.total.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) +'</label></div>'+ 
+                                    '</div>'+
+                                    '</div>'+
+                                    '</td>' +
+                                    '<td>' + order.order_Status + '</td>' +
+                                    '<td>' + order.order_PaymentStatus + '</td>' +
+                                    '<td>' + order.paymentMethod + '</td>' +
+                                    // '<td>' + 
+                                    // '<div class="media-body">'+
+                                    // '<div class="fs-7"><label style="width: 100px;">Address </label><label style= "color: #007d88;" class="table-link-text link-medium-em">'+ order.billingAddress +'</label></div>'+ 
+                                    // '<div class="fs-7"><label style="width: 100px;">Delivery Date </label><label style= "color: #007d88;" class="table-link-text link-medium-em">'+ moment.utc(order.deliveryDate).local().format('YYYY-MM-DD HH:mm a') +'</label></div>'+ 
+                                    // // '<div class="fs-7"><label style="width: 100px;">Shipping Fee </label><label style= "color: #007d88;" class="table-link-text link-medium-em">'+ order.shippingFees.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) +'</label></div>'+ 
+                                    // '</div>'+
+                                    // '</td>' +
+                                    '<td>' +
+                                    '<div class="d-flex flex-shrink-0 align-items-center ms-3">' +
+                                    '<a target="_blank" class="btn btn-sm btn-primary" href="/order/view_order_details/'+order.orderCode+'" type="button">View More</a>'
+                                    '</div>' +
+                                    '</td>' +
+                                    '</tr>';                               
+                                })
+                            } 
+                        }else{
+                            mobile = ""
+                            orderInnerHtml = '<tr><td></td><td></td><td><center><span style="color:gray; font-size:18px; font-family: Trirong;">No Data Available...</span></center></td><td></td><td></td><td></td></tr>';  
+                        }
+                        document.getElementById('search_list').innerHTML = orderInnerHtml;
+                    }
+                })        
+            }
+        </script>
+</body>
+
+</html>

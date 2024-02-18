@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Meta Tags -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel | Banner</title>
+    <meta name="description"
+        content="A modern CRM Dashboard Template with reusable and flexible components for your SaaS web applications by hencework. Based on Bootstrap." />
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/dist/img/favicon.png">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+
+    <!-- Bootstrap Dropify CSS -->
+    <link href="/vendors/dropify/dist/css/dropify.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Bootstrap Colorpicker -->
+    <link href="/vendors/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css" rel="stylesheet"
+        type="text/css" />
+
+    <!-- Daterangepicker CSS -->
+    <link href="/vendors/daterangepicker/daterangepicker.css" rel="stylesheet" type="text/css" />
+
+    <!-- CSS -->
+    <link href="/dist/css/style.css" rel="stylesheet" type="text/css">
+
+    <!-- Select2 CSS -->
+    <link href="/vendors/select2/dist/css/select2.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Data Table CSS -->
+    <link href="/vendors/datatables.net-bs5/css/dataTables.bootstrap5.min.css" rel="stylesheet" type="text/css" />
+    <link href="/vendors/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css" rel="stylesheet"
+        type="text/css" />
+
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+
+    <!-- Toastr  -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet" />
+
+    <style>
+        .tox-statusbar__branding {
+            display: none;
+        }
+
+        .tox-statusbar__path-item {
+            display: none;
+        }
+
+        .bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn) {
+            width: 700px;
+        }
+    </style>
+
+</head>
+
+<body style="font-size: 15px;">
+    <!-- Wrapper -->
+    <div class="hk-wrapper" data-layout="vertical" data-layout-style="default" data-menu="light" data-footer="simple">
+        <!-- /Header -->
+        <%- include('includes/header.ejs'); %>
+
+            <!-- Vertical Nav -->
+            <div class="hk-menu">
+                <!-- Brand -->
+                <div class="menu-header">
+                    <span>
+                        <a class="navbar-brand" href="/home">
+                            <img class="brand-img img-fluid" src="/dist/img/icon.png" width="45" height="70" alt="Logo"
+                                style="padding-bottom: 10px; padding-top: 15px;" />
+                            <span
+                                style="font-family: 'Barlow',sans-serif; font-size: 14px; font-weight: bold;padding-left: 10px;">KANDY
+                                PHARMACY</span>
+                        </a>
+                        <button class="btn btn-icon btn-rounded btn-flush-dark flush-soft-hover navbar-toggle">
+                            <span class="icon">
+                                <span class="svg-icon fs-5">
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                        class="icon icon-tabler icon-tabler-arrow-bar-to-left" width="24" height="24"
+                                        viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                        <line x1="10" y1="12" x2="20" y2="12"></line>
+                                        <line x1="10" y1="12" x2="14" y2="16"></line>
+                                        <line x1="10" y1="12" x2="14" y2="8"></line>
+                                        <line x1="4" y1="4" x2="4" y2="20"></line>
+                                    </svg>
+                                </span>
+                            </span>
+                        </button>
+                    </span>
+                </div>
+                <!-- /Brand -->
+
+                <!-- /Navbar -->
+                <%- include('includes/navbar.ejs'); %>
+            </div>
+            <div id="hk_menu_backdrop" class="hk-menu-backdrop"></div>
+            <!-- /Vertical Nav -->
+
+            <!-- Main Content -->
+            <div class="hk-pg-wrapper">
+                <div class="container-xxl">
+                    <!-- Page Header -->
+                    <div class="hk-pg-header">
+                        <h1 class="pg-title">Add Banners</h1>
+                        <!-- <p>The Avatar component is used to represent a user, and displays the profile picture, initials or fallback icon.</p> -->
+                    </div>
+                    <!-- /Page Header -->
+
+                    <!-- Page Body -->
+                    <div class="hk-pg-body" style="padding: 0px;">
+                        <div class="row edit-profile-wrap" style="margin-right: 0px; margin-left: 0px;">
+                            <div class="col-lg-12 col-sm-12 col-12">
+                                <div class="tab-content">
+                                    <div class="tab-pane fade show active" id="tab_block_1">
+                                        <div class="title title-xs title-wth-divider text-primary text-uppercase my-4">
+                                            <span>Banner Information</span>
+                                        </div>
+
+                                        <div class="row gx-3">
+                                            <!-- Banner One  -->
+                                            <div class="card col-md-5">
+                                                <div id="preview1" class="collapse show">
+                                                    <div class="card-body">
+                                                        <input type="file" id="img1" name="img1"
+                                                            class="dropify-2 upload1"
+                                                            data-default-file="/dist/img/noimage.png" />
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="form-label-group">
+                                                        <label class="form-label">Banner Name*</label> <a
+                                                            onclick="enableBannerOne()" href="#">Edit Info</a>
+                                                    </div>
+                                                    <input type="text" class="form-control" id="name1"
+                                                        value="<%=bannerOne.bannerName%>" readonly />
+                                                </div>
+                                                <div class="row gx-3 align-items-center">
+                                                    <div class="col-xl-auto mb-xl-0 mb-2">
+                                                        <div class="form-group">
+                                                            <div class="form-label-group">
+                                                                <label class="form-label">Location*</label>
+                                                            </div>
+                                                            <input type="text" class="form-control" id="location1"
+                                                                value="Home Page One" readonly />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-auto mb-xl-0 mb-2">
+                                                        <div class="form-group">
+                                                            <div class="form-label-group">
+                                                                <label class="form-label">Redirect URL*</label>
+                                                            </div>
+                                                            <input type="text" class="form-control" id="url1"
+                                                                value="<%=bannerOne.redirectURL%>" readonly />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="form-label-group">
+                                                        <label class="form-label">Description One</label>
+                                                    </div>
+                                                    <textarea class="form-control" rows="2"
+                                                        placeholder="Write an internal note..." readonly
+                                                        id="descOne1"><%=bannerOne.description1%></textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="form-label-group">
+                                                        <label class="form-label">Description Two</label>
+                                                    </div>
+                                                    <textarea class="form-control" rows="2"
+                                                        placeholder="Write an internal note..." readonly
+                                                        id="descTwo1"><%=bannerOne.description2%></textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="form-label-group">
+                                                        <label class="form-label">Description Three</label>
+                                                    </div>
+                                                    <textarea class="form-control" rows="2"
+                                                        placeholder="Write an internal note..." readonly
+                                                        id="descThree1"><%=bannerOne.description3%></textarea>
+                                                </div>
+                                                <button type="button" class="btn btn-primary mb-3" id="btnSaveBannerOne"
+                                                    disabled>Save Banner</button>
+                                            </div>
+                                            <!-- Banner One  -->
+                                            <div class="col-md-1"></div>
+
+                                            <!-- Banner Two  -->
+                                            <div class="card col-md-5">
+                                                <div id="preview2" class="collapse show">
+                                                    <div class="card-body">
+                                                        <input type="file" id="img2" name="img2"
+                                                            class="dropify-2 upload2"
+                                                            data-default-file="/dist/img/noimage.png" />
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="form-label-group">
+                                                        <label class="form-label">Banner Name*</label> <a
+                                                            onclick="enableBannerTwo()" href="#">Edit Info</a>
+                                                    </div>
+                                                    <input type="text" class="form-control" id="name2"
+                                                        value="<%=bannerTwo.bannerName%>" readonly />
+                                                </div>
+                                                <div class="row gx-3 align-items-center">
+                                                    <div class="col-xl-auto mb-xl-0 mb-2">
+                                                        <div class="form-group">
+                                                            <div class="form-label-group">
+                                                                <label class="form-label">Location*</label>
+                                                            </div>
+                                                            <input type="text" class="form-control" id="location2"
+                                                                value="Home Page Two" readonly />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-auto mb-xl-0 mb-2">
+                                                        <div class="form-group">
+                                                            <div class="form-label-group">
+                                                                <label class="form-label">Redirect URL*</label>
+                                                            </div>
+                                                            <input type="text" class="form-control" id="url2"
+                                                                value="<%=bannerTwo.redirectURL%>" readonly />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="form-label-group">
+                                                        <label class="form-label">Description One</label>
+                                                    </div>
+                                                    <textarea class="form-control" rows="2"
+                                                        placeholder="Write an internal note..." readonly
+                                                        id="descOne2"><%=bannerTwo.description1%></textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="form-label-group">
+                                                        <label class="form-label">Description Two</label>
+                                                    </div>
+                                                    <textarea class="form-control" rows="2"
+                                                        placeholder="Write an internal note..." readonly
+                                                        id="descTwo2"><%=bannerTwo.description2%></textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="form-label-group">
+                                                        <label class="form-label">Description Three</label>
+                                                    </div>
+                                                    <textarea class="form-control" rows="2"
+                                                        placeholder="Write an internal note..." readonly
+                                                        id="descThree2"><%=bannerTwo.description3%></textarea>
+                                                </div>
+                                                <button type="button" class="btn btn-primary mb-3" disabled
+                                                    id="btnSaveBannerTwo">Save
+                                                    Banner</button>
+                                            </div>
+                                            <!-- Banner Two  -->
+
+                                            <!-- Banner Three  -->
+                                            <div class="card col-md-5">
+                                                <div id="preview3" class="collapse show">
+                                                    <div class="card-body">
+                                                        <input type="file" id="input-file-now2" name="img3"
+                                                            class="dropify-2 upload3"
+                                                            data-default-file="/dist/img/noimage.png" />
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="form-label-group">
+                                                        <label class="form-label">Banner Name*</label> <a
+                                                            onclick="enableBannerThree()" href="#">Edit Info</a>
+                                                    </div>
+                                                    <input type="text" class="form-control" id="name3"
+                                                        value="<%=bannerThree.bannerName%>" readonly />
+                                                </div>
+                                                <div class="row gx-3 align-items-center">
+                                                    <div class="col-xl-auto mb-xl-0 mb-2">
+                                                        <div class="form-group">
+                                                            <div class="form-label-group">
+                                                                <label class="form-label">Location*</label>
+                                                            </div>
+                                                            <input type="text" class="form-control" id="location3"
+                                                                value="Home Page Three" readonly />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-auto mb-xl-0 mb-2">
+                                                        <div class="form-group">
+                                                            <div class="form-label-group">
+                                                                <label class="form-label">Redirect URL*</label>
+                                                            </div>
+                                                            <input type="text" class="form-control" id="url3"
+                                                                value="<%=bannerThree.redirectURL%>" readonly />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="form-label-group">
+                                                        <label class="form-label">Description One</label>
+                                                    </div>
+                                                    <textarea class="form-control" rows="2"
+                                                        placeholder="Write an internal note..." readonly
+                                                        id="descOne3"><%=bannerThree.description1%></textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="form-label-group">
+                                                        <label class="form-label">Description Two</label>
+                                                    </div>
+                                                    <textarea class="form-control" rows="2"
+                                                        placeholder="Write an internal note..." readonly
+                                                        id="descTwo3"><%=bannerThree.description2%></textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="form-label-group">
+                                                        <label class="form-label">Description Three</label>
+                                                    </div>
+                                                    <textarea class="form-control" rows="2"
+                                                        placeholder="Write an internal note..." readonly
+                                                        id="descThree3"><%=bannerThree.description3%></textarea>
+                                                </div>
+                                                <button type="button" class="btn btn-primary mb-3" disabled
+                                                    id="btnSaveBannerThree">Save
+                                                    Banner</button>
+                                            </div>
+                                            <!-- Banner Three  -->
+                                            <div class="col-md-1"></div>
+
+                                            <!-- Banner Four  -->
+                                            <div class="card col-md-5">
+                                                <div id="preview4" class="collapse show">
+                                                    <div class="card-body">
+                                                        <input type="file" id="input-file-now2" name="img4"
+                                                            class="dropify-2 upload4"
+                                                            data-default-file="/dist/img/noimage.png" />
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="form-label-group">
+                                                        <label class="form-label">Banner Name*</label> <a
+                                                            onclick="enableBannerFour()" href="#">Edit Info</a>
+                                                    </div>
+                                                    <input type="text" class="form-control" id="name4"
+                                                        value="<%=bannerFour.bannerName%>" readonly />
+                                                </div>
+                                                <div class="row gx-3 align-items-center">
+                                                    <div class="col-xl-auto mb-xl-0 mb-2">
+                                                        <div class="form-group">
+                                                            <div class="form-label-group">
+                                                                <label class="form-label">Location*</label>
+                                                            </div>
+                                                            <input type="text" class="form-control" id="location4"
+                                                                value="Products Page" readonly />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-auto mb-xl-0 mb-2">
+                                                        <div class="form-group">
+                                                            <div class="form-label-group">
+                                                                <label class="form-label">Redirect URL*</label>
+                                                            </div>
+                                                            <input type="text" class="form-control" id="url4"
+                                                                value="<%=bannerFour.redirectURL%>" readonly />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="form-label-group">
+                                                        <label class="form-label">Description One</label>
+                                                    </div>
+                                                    <textarea class="form-control" rows="2"
+                                                        placeholder="Write an internal note..." readonly
+                                                        id="descOne4"><%=bannerFour.description1%></textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="form-label-group">
+                                                        <label class="form-label">Description Two</label>
+                                                    </div>
+                                                    <textarea class="form-control" rows="2"
+                                                        placeholder="Write an internal note..." readonly
+                                                        id="descTwo4"><%=bannerFour.description2%></textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="form-label-group">
+                                                        <label class="form-label">Description Three</label>
+                                                    </div>
+                                                    <textarea class="form-control" rows="2"
+                                                        placeholder="Write an internal note..." readonly
+                                                        id="descThree4"><%=bannerFour.description3%></textarea>
+                                                </div>
+                                                <button type="button" class="btn btn-primary mb-3" disabled
+                                                    id="btnSaveBannerFour">Save
+                                                    Banner</button>
+                                            </div>
+                                            <!-- Banner Four  -->
+
+                                            <!-- Banner Five  -->
+                                            <div class="card col-md-5">
+                                                <div id="preview5" class="collapse show">
+                                                    <div class="card-body">
+                                                        <input type="file" id="input-file-now5" name="img5"
+                                                            class="dropify-2 upload5"
+                                                            data-default-file="/dist/img/noimage.png" />
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="form-label-group">
+                                                        <label class="form-label">Banner Name*</label> <a
+                                                            onclick="enableBannerFive()" href="#">Edit Info</a>
+                                                    </div>
+                                                    <input type="text" class="form-control" id="name5"
+                                                        value="<%=bannerFive.bannerName%>" readonly />
+                                                </div>
+                                                <div class="row gx-3 align-items-center">
+                                                    <div class="col-xl-auto mb-xl-0 mb-2">
+                                                        <div class="form-group">
+                                                            <div class="form-label-group">
+                                                                <label class="form-label">Location*</label>
+                                                            </div>
+                                                            <input type="text" class="form-control" id="location5"
+                                                                value="Single Product Page" readonly />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-auto mb-xl-0 mb-2">
+                                                        <div class="form-group">
+                                                            <div class="form-label-group">
+                                                                <label class="form-label">Redirect URL*</label>
+                                                            </div>
+                                                            <input type="text" class="form-control" id="url5"
+                                                                value="<%=bannerFive.redirectURL%>" readonly />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="form-label-group">
+                                                        <label class="form-label">Description One</label>
+                                                    </div>
+                                                    <textarea class="form-control" rows="2"
+                                                        placeholder="Write an internal note..." readonly
+                                                        id="descOne5"><%=bannerFive.description1%></textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="form-label-group">
+                                                        <label class="form-label">Description Two</label>
+                                                    </div>
+                                                    <textarea class="form-control" rows="2"
+                                                        placeholder="Write an internal note..." readonly
+                                                        id="descTwo5"><%=bannerFive.description2%></textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="form-label-group">
+                                                        <label class="form-label">Description Three</label>
+                                                    </div>
+                                                    <textarea class="form-control" rows="2"
+                                                        placeholder="Write an internal note..." readonly
+                                                        id="descThree5"><%=bannerFive.description3%></textarea>
+                                                </div>
+                                                <button type="button" class="btn btn-primary mb-3" disabled
+                                                    id="btnSaveBannerFive">Save
+                                                    Banner</button>
+                                            </div>
+                                            <!-- Banner Five  -->
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /Page Body -->
+                </div>
+
+                <!-- Page Footer -->
+                <%- include('includes/footer.ejs'); %>
+
+            </div>
+            <!-- /Main Content -->
+
+    </div>
+    <!-- /Wrapper -->
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+
+    <!-- jQuery -->
+    <script src="/vendors/jquery/dist/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JS -->
+    <script src="/vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- FeatherIcons JS -->
+    <script src="/dist/js/feather.min.js"></script>
+
+    <!-- Fancy Dropdown JS -->
+    <script src="/dist/js/dropdown-bootstrap-extended.js"></script>
+
+    <!-- Simplebar JS -->
+    <script src="/vendors/simplebar/dist/simplebar.min.js"></script>
+
+    <!-- Repeater JS -->
+    <script src="/vendors/jquery.repeater/jquery.repeater.min.js"></script>
+
+    <!-- Daterangepicker JS -->
+    <script src="/vendors/moment/min/moment.min.js"></script>
+    <script src="/vendors/daterangepicker/daterangepicker.js"></script>
+    <script src="/dist/js/daterangepicker-data.js"></script>
+
+    <!-- Bootstrap Colorpicker JS -->
+    <script src="/vendors/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
+    <script src="/dist/js/color-picker-data.js"></script>
+
+    <!-- Tinymce JS -->
+    <script src="/vendors/tinymce/tinymce.min.js"></script>
+
+    <!-- Dropify JS -->
+    <script src="/vendors/dropify/dist/js/dropify.min.js"></script>
+    <script src="/dist/js/dropify-data.js"></script>
+
+    <!-- Init JS -->
+    <script src="/dist/js/init.js"></script>
+    <script src="/dist/js/create-invoice-data.js"></script>
+    <script src="/dist/js/chips-init.js"></script>
+
+    <!-- Data Table JS -->
+    <script src="/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="/vendors/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script>
+    <script src="/vendors/datatables.net-select/js/dataTables.select.min.js"></script>
+
+    <!-- Select2 JS -->
+    <script src="/vendors/select2/dist/js/select2.full.min.js"></script>
+
+    <!-- Tinymce JS -->
+    <script src="/vendors/tinymce/tinymce.min.js"></script>
+    <script src="/dist/js/tinymce-data.js"></script>
+
+    <!-- Toastr  -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
+
+    <script>
+
+        function uuidv4() {
+            return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, (c) =>
+                (c ^ (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (c / 4)))).toString(16)
+            );
+        }
+
+        // load saved banner images
+        $(document).ready(function () {
+            $('#preview1').each(function () {
+                var imgUrlOne = '<%=bannerOne.imageURL%>';
+                if(imgUrlOne != ""){
+                $(this).find('img').attr('src', "https://storage.googleapis.com/banners_bucket_2/" + imgUrlOne);
+                $('#img1').attr('src', "https://storage.googleapis.com/banners_bucket_2/" + imgUrlOne);
+                }
+            });
+            $('#preview2').each(function () {
+                var imgUrlTwo = '<%=bannerTwo.imageURL%>';
+                if(imgUrlTwo != ""){
+                $(this).find('img').attr('src', "https://storage.googleapis.com/banners_bucket_2/" + imgUrlTwo);
+                $('#img2').attr('src', "https://storage.googleapis.com/banners_bucket_2/" + imgUrlTwo);
+                }
+            });
+            $('#preview3').each(function () {
+                var imgUrlThree = '<%=bannerThree.imageURL%>';
+                if(imgUrlThree != ""){
+                $(this).find('img').attr('src', "https://storage.googleapis.com/banners_bucket_2/" + imgUrlThree);
+                $('#img3').attr('src', "https://storage.googleapis.com/banners_bucket_2/" + imgUrlThree);
+                }
+            });
+            $('#preview4').each(function () {
+                var imgUrlFour = '<%=bannerFour.imageURL%>';
+                if(imgUrlFour != ""){
+                $(this).find('img').attr('src', "https://storage.googleapis.com/banners_bucket_2/" + imgUrlFour);
+                $('#img4').attr('src', "https://storage.googleapis.com/banners_bucket_2/" + imgUrlFour);
+                }
+            });
+            $('#preview5').each(function () {
+                var imgUrlFive = '<%=bannerFive.imageURL%>';
+                if(imgUrlFive != ""){
+                    $(this).find('img').attr('src', "https://storage.googleapis.com/banners_bucket_2/" + imgUrlFive);
+                    $('#img5').attr('src', "https://storage.googleapis.com/banners_bucket_2/" + imgUrlFive);
+                }               
+            });
+        });
+
+        // BANNER ONE -------------------------------------------------------------------------------------------------------
+        function enableBannerOne() {
+            $("#name1").prop("readonly", false);
+            $("#url1").prop("readonly", false);
+            $("#descOne1").prop("readonly", false);
+            $("#descTwo1").prop("readonly", false);
+            $("#descThree1").prop("readonly", false);
+            $("#btnSaveBannerOne").prop("disabled", false);
+            toastr.success(
+                'Required fields enabled !',
+                '',
+                {
+                    timeOut: 2000,
+                    fadeOut: 2000,
+                }
+            );
+        }
+
+        document.getElementById("btnSaveBannerOne").addEventListener("click", () => {
+            var success = true;
+            var name = $('#name1').val();
+            var location = $('#location1').val();
+            var url = $('#url1').val();
+            var descOne = $('#descOne1').val();
+            var descTwo = $('#descTwo1').val();
+            var descThree = $('#descThree1').val();
+            var imgDoc = document.getElementsByName("img1");
+            var file = imgDoc[0].files[0];
+        
+            if (!name || !location || !url) {
+                success = false;
+                toastr.error('ERROR: Please fill required fields.','Error');
+            }
+
+            $('#preview1').each(function () {
+            var imgTags = $(this).find("img")
+            if(imgTags.length == 0){
+                success = false;
+                toastr.error( 'Choose the banner image.','Error')
+            }
+            });
+
+            if (success == true) {
+                let formData = new FormData();
+                    // Check If this is a http image(existing image) or data image(new image)
+                    $('#preview1').each(function () {
+                        if($(this).find('img').attr('src') != undefined){
+                            if($(this).find('img').attr('src').split(':')[0] == "https"){
+                                //console.log('http file')
+                                formData.append("existingImage", '<%=bannerOne.imageURL%>');
+                            }else if($(this).find('img').attr('src').split(':')[0] == "data"){
+                                //console.log("data file: "+file)
+                                if (file != undefined) {
+                                    let imgid = uuidv4();
+                                    let blob = file.slice(0, file.size, "image/jpeg");
+                                    newFile = new File([blob], `${imgid}_banner.jpeg`, { type: "image/jpeg" });
+                                    formData.append("imgfile", newFile);
+                                } 
+                            }
+                        }                     
+                    });
+
+                formData.append("name", name);
+                formData.append("location", location);
+                formData.append("url", url);
+                formData.append("descOne", descOne);
+                formData.append("descTwo", descTwo);
+                formData.append("descThree", descThree);
+                
+                // save banner one
+                fetch("/banner/add", {
+                    method: "POST",
+                    body: formData,
+                })
+                    .then((res) => {
+                        //console.log(res)
+                        if (res.status === 200) {
+                            toastr.success(
+                                'SUCCESS: ' + location + ' Banner saved successfully.',
+                                'Success',
+                                {
+                                    timeOut: 2000,
+                                    fadeOut: 1000,
+                                    onHidden: function () {
+                                        window.location.href = window.location.pathname;
+                                    }
+                                }
+                            );
+                        }
+                    })
+            }
+        });
+
+        // BANNER TWO -------------------------------------------------------------------------------------------------------
+        function enableBannerTwo() {
+            $("#name2").prop("readonly", false);
+            $("#url2").prop("readonly", false);
+            $("#descOne2").prop("readonly", false);
+            $("#descTwo2").prop("readonly", false);
+            $("#descThree2").prop("readonly", false);
+            $("#btnSaveBannerTwo").prop("disabled", false);
+            toastr.success(
+                'Required fields enabled !',
+                '',
+                {
+                    timeOut: 2000, fadeOut: 2000,
+                }
+            );
+        }
+
+        document.getElementById("btnSaveBannerTwo").addEventListener("click", () => {
+            var success = true;
+            var name = $('#name2').val();
+            var location = $('#location2').val();
+            var url = $('#url2').val();
+            var descOne = $('#descOne2').val();
+            var descTwo = $('#descTwo2').val();
+            var descThree = $('#descThree2').val();
+            var imgDoc = document.getElementsByName("img2");
+            var file = imgDoc[0].files[0];
+            
+            if (!name || !location || !url) {
+                success = false;
+                toastr.error(
+                    'ERROR: Please fill required fields.',
+                    'Error',
+                    {
+                        timeOut: 2000,
+                        fadeOut: 2000,
+                    }
+                );
+            }
+            $('#preview2').each(function () {
+            var imgTags = $(this).find("img")
+            if(imgTags.length == 0){
+                success = false;
+                toastr.error( 'Choose the banner image.','Error')
+            }
+            });
+
+            if (success == true) {
+                let formData = new FormData();
+                    // Check If this is a http image(existing image) or data image(new image)
+                    $('#preview2').each(function () {
+                        if($(this).find('img').attr('src') != undefined){
+                            if($(this).find('img').attr('src').split(':')[0] == "https"){
+                                //console.log('http file')
+                                formData.append("existingImage", '<%=bannerOne.imageURL%>');
+                            }else if($(this).find('img').attr('src').split(':')[0] == "data"){
+                                //console.log("data file: "+file)
+                                if (file != undefined) {
+                                    let imgid = uuidv4();
+                                    let blob = file.slice(0, file.size, "image/jpeg");
+                                    newFile = new File([blob], `${imgid}_banner.jpeg`, { type: "image/jpeg" });
+                                    formData.append("imgfile", newFile);
+                                } 
+                            }
+                        }                     
+                    });
+
+                formData.append("name", name);
+                formData.append("location", location);
+                formData.append("url", url);
+                formData.append("descOne", descOne);
+                formData.append("descTwo", descTwo);
+                formData.append("descThree", descThree);
+
+                // save banner two
+                fetch("/banner/add", {
+                    method: "POST",
+                    body: formData,
+                })
+                    .then((res) => {
+                        //console.log(res)
+                        if (res.status === 200) {
+                            toastr.success(
+                                'SUCCESS: ' + location + ' Banner saved successfully.',
+                                'Success',
+                                {
+                                    timeOut: 2000,
+                                    fadeOut: 1000,
+                                    onHidden: function () {
+                                        window.location.href = window.location.pathname;
+                                    }
+                                }
+                            );
+                        }
+                    })
+            }
+        });
+
+        // BANNER Three -------------------------------------------------------------------------------------------------------
+        function enableBannerThree() {
+            $("#name3").prop("readonly", false);
+            $("#url3").prop("readonly", false);
+            $("#descOne3").prop("readonly", false);
+            $("#descTwo3").prop("readonly", false);
+            $("#descThree3").prop("readonly", false);
+            $("#btnSaveBannerThree").prop("disabled", false);
+            toastr.success(
+                'Required fields enabled !',
+                '',
+                {
+                    timeOut: 2000, fadeOut: 2000,
+                }
+            );
+        }
+
+        document.getElementById("btnSaveBannerThree").addEventListener("click", () => {
+            var success = true;
+            var name = $('#name3').val();
+            var location = $('#location3').val();
+            var url = $('#url3').val();
+            var descOne = $('#descOne3').val();
+            var descTwo = $('#descTwo3').val();
+            var descThree = $('#descThree3').val();
+            var imgDoc = document.getElementsByName("img3");
+            var file = imgDoc[0].files[0];
+            
+            if (!name || !location || !url) {
+                success = false;
+                toastr.error(
+                    'ERROR: Please fill required fields.',
+                    'Error',
+                    {
+                        timeOut: 2000,
+                        fadeOut: 2000,
+                    }
+                );
+            }
+            $('#preview3').each(function () {
+            var imgTags = $(this).find("img")
+            if(imgTags.length == 0){
+                success = false;
+                toastr.error( 'Choose the banner image.','Error')
+            }
+            });
+
+            if (success == true) {
+                let formData = new FormData();
+                    // Check If this is a http image(existing image) or data image(new image)
+                    $('#preview3').each(function () {
+                        if($(this).find('img').attr('src') != undefined){
+                            if($(this).find('img').attr('src').split(':')[0] == "https"){
+                                //console.log('http file')
+                                formData.append("existingImage", '<%=bannerOne.imageURL%>');
+                            }else if($(this).find('img').attr('src').split(':')[0] == "data"){
+                                //console.log("data file: "+file)
+                                if (file != undefined) {
+                                    let imgid = uuidv4();
+                                    let blob = file.slice(0, file.size, "image/jpeg");
+                                    newFile = new File([blob], `${imgid}_banner.jpeg`, { type: "image/jpeg" });
+                                    formData.append("imgfile", newFile);
+                                } 
+                            }
+                        }                     
+                    });
+
+                formData.append("name", name);
+                formData.append("location", location);
+                formData.append("url", url);
+                formData.append("descOne", descOne);
+                formData.append("descTwo", descTwo);
+                formData.append("descThree", descThree);
+
+                // save banner three
+                fetch("/banner/add", {
+                    method: "POST",
+                    body: formData,
+                })
+                    .then((res) => {
+                        //console.log(res)
+                        if (res.status === 200) {
+                            toastr.success(
+                                'SUCCESS: ' + location + ' Banner saved successfully.',
+                                'Success',
+                                {
+                                    timeOut: 2000,
+                                    fadeOut: 1000,
+                                    onHidden: function () {
+                                        window.location.href = window.location.pathname;
+                                    }
+                                }
+                            );
+                        }
+                    })
+            }
+        });
+
+        // BANNER Four -------------------------------------------------------------------------------------------------------
+        function enableBannerFour() {
+            $("#name4").prop("readonly", false);
+            $("#url4").prop("readonly", false);
+            $("#descOne4").prop("readonly", false);
+            $("#descTwo4").prop("readonly", false);
+            $("#descThree4").prop("readonly", false);
+            $("#btnSaveBannerFour").prop("disabled", false);
+            toastr.success(
+                'Required fields enabled !',
+                '',
+                {
+                    timeOut: 2000, fadeOut: 2000,
+                }
+            );
+        }
+
+        document.getElementById("btnSaveBannerFour").addEventListener("click", () => {
+            var success = true;
+            var name = $('#name4').val();
+            var location = $('#location4').val();
+            var url = $('#url4').val();
+            var descOne = $('#descOne4').val();
+            var descTwo = $('#descTwo4').val();
+            var descThree = $('#descThree4').val();
+            var imgDoc = document.getElementsByName("img4");
+            var file = imgDoc[0].files[0];
+           
+            if (!name || !location || !url) {
+                success = false;
+                toastr.error(
+                    'ERROR: Please fill required fields.',
+                    'Error',
+                    {
+                        timeOut: 2000,
+                        fadeOut: 2000,
+                    }
+                );
+            }
+            $('#preview4').each(function () {
+            var imgTags = $(this).find("img")
+            if(imgTags.length == 0){
+                success = false;
+                toastr.error( 'Choose the banner image.','Error')
+            }
+            });
+
+            if (success == true) {
+                let formData = new FormData();
+                    // Check If this is a http image(existing image) or data image(new image)
+                    $('#preview4').each(function () {
+                        if($(this).find('img').attr('src') != undefined){
+                            if($(this).find('img').attr('src').split(':')[0] == "https"){
+                                //console.log('http file')
+                                formData.append("existingImage", '<%=bannerOne.imageURL%>');
+                            }else if($(this).find('img').attr('src').split(':')[0] == "data"){
+                                //console.log("data file: "+file)
+                                if (file != undefined) {
+                                    let imgid = uuidv4();
+                                    let blob = file.slice(0, file.size, "image/jpeg");
+                                    newFile = new File([blob], `${imgid}_banner.jpeg`, { type: "image/jpeg" });
+                                    formData.append("imgfile", newFile);
+                                } 
+                            }
+                        }                     
+                    });
+
+                formData.append("name", name);
+                formData.append("location", location);
+                formData.append("url", url);
+                formData.append("descOne", descOne);
+                formData.append("descTwo", descTwo);
+                formData.append("descThree", descThree);
+
+                // save banner four
+                fetch("/banner/add", {
+                    method: "POST",
+                    body: formData,
+                })
+                    .then((res) => {
+                        //console.log(res)
+                        if (res.status === 200) {
+                            toastr.success(
+                                'SUCCESS: ' + location + ' Banner saved successfully.',
+                                'Success',
+                                {
+                                    timeOut: 2000,
+                                    fadeOut: 1000,
+                                    onHidden: function () {
+                                        window.location.href = window.location.pathname;
+                                    }
+                                }
+                            );
+                        }
+                    })
+            }
+        });
+
+        // BANNER Five -------------------------------------------------------------------------------------------------------
+        function enableBannerFive() {
+            $("#name5").prop("readonly", false);
+            $("#url5").prop("readonly", false);
+            $("#descOne5").prop("readonly", false);
+            $("#descTwo5").prop("readonly", false);
+            $("#descThree5").prop("readonly", false);
+            $("#btnSaveBannerFive").prop("disabled", false);
+            toastr.success(
+                'Required fields enabled !',
+                '',
+                {
+                    timeOut: 2000, fadeOut: 2000,
+                }
+            );
+        }
+
+        document.getElementById("btnSaveBannerFive").addEventListener("click", () => {
+            var success = true;
+            var name = $('#name5').val();
+            var location = $('#location5').val();
+            var url = $('#url5').val();
+            var descOne = $('#descOne5').val();
+            var descTwo = $('#descTwo5').val();
+            var descThree = $('#descThree5').val();
+            var imgDoc = document.getElementsByName("img5");
+            var file = imgDoc[0].files[0];
+            
+            if (!name || !location || !url) {
+                success = false;
+                toastr.error(
+                    'ERROR: Please fill required fields.',
+                    'Error',
+                    {
+                        timeOut: 2000,
+                        fadeOut: 2000,
+                    }
+                );
+            }
+            $('#preview5').each(function () {
+            var imgTags = $(this).find("img")
+            if(imgTags.length == 0){
+                success = false;
+                toastr.error( 'Choose the banner image.','Error')
+            }
+            });
+
+            if (success == true) {
+                let formData = new FormData();
+                    // Check If this is a http image(existing image) or data image(new image)
+                    $('#preview5').each(function () {
+                        if($(this).find('img').attr('src') != undefined){
+                            if($(this).find('img').attr('src').split(':')[0] == "https"){
+                                //console.log('http file')
+                                formData.append("existingImage", '<%=bannerOne.imageURL%>');
+                            }else if($(this).find('img').attr('src').split(':')[0] == "data"){
+                                //console.log("data file: "+file)
+                                if (file != undefined) {
+                                    let imgid = uuidv4();
+                                    let blob = file.slice(0, file.size, "image/jpeg");
+                                    newFile = new File([blob], `${imgid}_banner.jpeg`, { type: "image/jpeg" });
+                                    formData.append("imgfile", newFile);
+                                } 
+                            }
+                        }                     
+                    });
+
+                formData.append("name", name);
+                formData.append("location", location);
+                formData.append("url", url);
+                formData.append("descOne", descOne);
+                formData.append("descTwo", descTwo);
+                formData.append("descThree", descThree);
+
+                // save banner five
+                fetch("/banner/add", {
+                    method: "POST",
+                    body: formData,
+                })
+                    .then((res) => {
+                        //console.log(res)
+                        if (res.status === 200) {
+                            toastr.success(
+                                'SUCCESS: ' + location + ' Banner saved successfully.',
+                                'Success',
+                                {
+                                    timeOut: 2000,
+                                    fadeOut: 1000,
+                                    onHidden: function () {
+                                        window.location.href = window.location.pathname;
+                                    }
+                                }
+                            );
+                        }                       
+                    })
+            }
+        });
+
+
+    </script>
+
+</body>
+
+</html>

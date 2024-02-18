@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<!-- 
+Jampack
+Author: Hencework
+Contact: contact@hencework.com
+-->
+<html lang="en">
+
+<head>
+	<!-- Meta Tags -->
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Admin Panel | Product</title>
+	<meta name="description"
+		content="A modern CRM Dashboard Template with reusable and flexible components for your SaaS web applications by hencework. Based on Bootstrap." />
+
+	<!-- Favicon -->
+	<link rel="shortcut icon" href="/dist/img/favicon.png">
+	<link rel="icon" href="favicon.ico" type="image/x-icon">
+
+	<!-- Bootstrap Dropify CSS -->
+	<link href="/vendors/dropify/dist/css/dropify.min.css" rel="stylesheet" type="text/css" />
+
+	<!-- select2 CSS -->
+	<link href="/vendors/select2/dist/css/select2.min.css" rel="stylesheet" type="text/css" />
+
+	<!-- Data Table CSS -->
+	<link href="/vendors/datatables.net-bs5/css/dataTables.bootstrap5.min.css" rel="stylesheet" type="text/css" />
+	<link href="/vendors/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css" rel="stylesheet"
+		type="text/css" />
+
+	<!-- CSS -->
+	<link href="/dist/css/style.css" rel="stylesheet" type="text/css">
+
+	<!-- Toastr  -->
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet" />
+
+	<style>
+		/* Pagination Styles  */
+		html,
+		body {
+			height: 100%;
+		}
+
+		*,
+		*::after,
+		*::before {
+			box-sizing: border-box;
+		}
+
+		button {
+			background: none;
+			appearance: none;
+			-webkit-appearance: none;
+			-ms-appearance: none;
+			-moz-appearance: none;
+			border: none;
+			cursor: pointer;
+		}
+
+		.page-btn {
+			background: transparent;
+			color: rgb(138, 135, 135);
+			min-height: 35px;
+			min-width: 30px;
+			border-radius: 5px;
+			padding: 0px 10px 0px 10px;
+			text-transform: uppercase;
+			letter-spacing: 0.1em;
+			transition: background 0.3s ease;
+			margin: 0 5px;
+			border: 1px rgb(223, 221, 221) solid;
+			font-family: inherit;
+			font-weight: bold;
+		}
+
+		.page-btn:first-of-type {
+			margin-left: 0;
+		}
+
+		.page-btn:last-of-type {
+			margin-right: 0;
+		}
+
+		.pagination-buttons {
+			display: flex;
+			align-items: center;
+		}
+
+		.page-btn[class*="-page"] {
+			background: rgb(218, 216, 216);
+			font-size: 1.0em;
+			font-weight: bold;
+		}
+
+		.page-btn.active {
+			background: #007D88;
+			color: #fff;
+		}
+
+		.page-btn[disabled] {
+			opacity: 0.5;
+		}
+
+		.page-btn:hover {
+			background: #007D88;
+			color: #fff;
+		}
+
+		/* Pagination Styles  */
+
+
+		.contact-toolbar-left {
+			display: none;
+		}
+
+		.dot-active {
+			margin-left: 10px;
+			height: 13px;
+			width: 13px;
+			background-color: rgb(19, 170, 19);
+			border-radius: 50%;
+			display: inline-block;
+		}
+
+		.dot-deactive {
+			margin-left: 10px;
+			height: 13px;
+			width: 13px;
+			background-color: rgb(224, 59, 37);
+			border-radius: 50%;
+			display: inline-block;
+		}
+	</style>
+
+</head>
+
+<body style="font-size: 15px;">
+	<!-- Wrapper -->
+	<div class="hk-wrapper" data-layout="vertical" data-layout-style="collapsed" data-menu="light" data-footer="simple"
+		data-hover="active">
+
+		<!-- /Header -->
+		<%- include('includes/header.ejs'); %>
+
+			<!-- Vertical Nav -->
+			<div class="hk-menu">
+				<!-- Brand -->
+				<div class="menu-header">
+					<span>
+						<a class="navbar-brand" href="/home">
+							<img class="brand-img img-fluid" src="/dist/img/icon.png" width="45" height="70" alt="Logo"
+								style="padding-bottom: 10px; padding-top: 15px;" />
+							<span
+								style="font-family: 'Barlow',sans-serif; font-size: 14px; font-weight: bold;padding-left: 10px;">KANDY
+								PHARMACY</span>
+						</a>
+
+						<button class="btn btn-icon btn-rounded btn-flush-dark flush-soft-hover navbar-toggle">
+							<span class="icon">
+								<span class="svg-icon fs-5">
+									<svg xmlns="http://www.w3.org/2000/svg"
+										class="icon icon-tabler icon-tabler-arrow-bar-to-left" width="24" height="24"
+										viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+										stroke-linecap="round" stroke-linejoin="round">
+										<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+										<line x1="10" y1="12" x2="20" y2="12"></line>
+										<line x1="10" y1="12" x2="14" y2="16"></line>
+										<line x1="10" y1="12" x2="14" y2="8"></line>
+										<line x1="4" y1="4" x2="4" y2="20"></line>
+									</svg>
+								</span>
+							</span>
+						</button>
+					</span>
+				</div>
+				<!-- /Brand -->
+
+				<!-- /Navbar -->
+				<%- include('includes/navbar.ejs'); %>
+
+			</div>
+			<div id="hk_menu_backdrop" class="hk-menu-backdrop"></div>
+			<!-- /Vertical Nav -->
+
+			<!-- Main Content -->
+			<div class="hk-pg-wrapper pb-0">
+				<div class="container-xxl">
+					<!-- Page Header -->
+					<div class="hk-pg-header">
+						<h1 class="pg-title">View Products</h1>
+					</div>
+					<!-- /Page Header -->
+					<!-- Page Body -->
+					<div class="hk-pg-body">
+						<div class="tab-content">
+							<div class="tab-pane fade show active" id="tab_block_1">
+								<div class="row">
+									<div class="col-md-12 mb-md-4 mb-3">
+										<div class="card card-border mb-0 h-100">
+											<div class="card-body">
+
+												<div class="form-group col-lg-3" style="float: right;">
+													<span class="input-affix-wrapper">
+														<input class="form-control" placeholder="Search Products..." type="text" id="searchInput" oninput="search()"/>
+														<!-- <input class="form-control"
+															placeholder="Search Products..." type="text"
+															autocomplete="off" name="search_pro" id="search_pro"> -->
+														<a href="#" class="input-suffix text-muted" onclick="filterProducts()">
+															<span class="svg-icon">
+																<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+																	<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+																  </svg>
+															</span>
+														</a>
+													</span>
+												</div>
+
+												<div class="contact-list-view">
+													<table class="table nowrap w-100 mb-5">
+														<thead>
+															<tr>
+																<th>Product Code</th>
+																<th class="w-30">Product Name</th>
+																<th>Created By</th>
+																<th>Status</th>
+																<th style="text-align: center;">Actions</th>
+															</tr>
+														</thead>
+														<tbody id="proList">
+
+														</tbody>
+													</table>
+												</div>
+
+												<div class="dataTables_paginate paging_simple_numbers"
+													id="datable_1_paginate" style="float: right;">
+
+												</div>
+												<br><br>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- /Page Body -->
+					</div>
+					<!-- /Page Body -->
+				</div>
+
+				<!-- Page Footer -->
+				<%- include('includes/footer.ejs'); %>
+
+			</div>
+			<!-- /Main Content -->
+	</div>
+	<!-- /Wrapper -->
+
+	<!-- jQuery -->
+	<script src="/vendors/jquery/dist/jquery.min.js"></script>
+
+	<!-- Bootstrap Core JS -->
+	<script src="/vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+	<!-- FeatherIcons JS -->
+	<script src="/dist/js/feather.min.js"></script>
+
+	<!-- Fancy Dropdown JS -->
+	<script src="/dist/js/dropdown-bootstrap-extended.js"></script>
+
+	<!-- Simplebar JS -->
+	<script src="/vendors/simplebar/dist/simplebar.min.js"></script>
+
+	<!-- Data Table JS -->
+	<script src="/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+	<script src="/vendors/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script>
+	<script src="/vendors/datatables.net-select/js/dataTables.select.min.js"></script>
+
+	<!-- Daterangepicker JS -->
+	<script src="/vendors/moment/min/moment.min.js"></script>
+	<script src="/vendors/daterangepicker/daterangepicker.js"></script>
+	<script src="/dist/js/daterangepicker-data.js"></script>
+
+	<!-- Amcharts Maps JS -->
+	<script src="/vendors/@amcharts/amcharts4/core.js"></script>
+	<script src="/vendors/@amcharts/amcharts4/maps.js"></script>
+	<script src="/vendors/@amcharts/amcharts4-geodata/worldLow.js"></script>
+	<script src="/vendors/@amcharts/amcharts4-geodata/worldHigh.js"></script>
+	<script src="/vendors/@amcharts/amcharts4/themes/animated.js"></script>
+
+	<!-- Apex JS -->
+	<script src="/vendors/apexcharts/dist/apexcharts.min.js"></script>
+
+	<!-- Init JS -->
+	<script src="/dist/js/init.js"></script>
+	<script src="/dist/js/chips-init.js"></script>
+	<script src="/dist/js/dashboard-data.js"></script>
+
+	<!-- Toastr  -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
+
+	<script>
+
+		// Pagination Start ---------------------------------------------------------------------------------------
+		window.onload = function () {
+			getPageCount('');
+		}
+
+		// ********************************************************************************************************
+		const pageNumbers = (total, max, current) => {
+			const half = Math.floor(max / 2);
+			let to = max;
+
+			if (current + half >= total) {
+				to = total;
+			} else if (current > half) {
+				to = current + half;
+			}
+
+			let from = to - max;
+			return Array.from({ length: max }, (_, i) => (i + 1) + from);
+		}
+
+		// ********************************************************************************************************
+		function PaginationButton(totalPages, maxPagesVisible = 5, currentPage = 1) {
+			let pages = pageNumbers(totalPages, maxPagesVisible, currentPage);
+			//console.log('pages: ' + pages)
+			let currentPageBtn = null;
+			const buttons = new Map();
+			const disabled = {
+				start: () => pages[0] === 1,
+				prev: () => currentPage === 1,
+				end: () => pages.slice(-1)[0] === totalPages,
+				next: () => currentPage === totalPages
+			}
+			const frag = document.createDocumentFragment();
+			const paginationButtonContainer = document.createElement('div');
+			paginationButtonContainer.className = 'dataTables_paginate paging_simple_numbers';
+			// paginationButtonContainer.style = 'align-items:center;';
+
+			//   default page loading 
+			paginationButtonContainer.value = currentPage;
+			viewProducts(currentPage,'');
+
+			const createAndSetupButton = (label = '', cls = '', disabled = false, handleClick) => {
+				const buttonElement = document.createElement('button');
+				if (label == 'prev') {
+					buttonElement.innerHTML = '<i class="ri-arrow-left-s-line"></i>';
+				}
+				else if (label == 'next') {
+					buttonElement.innerHTML = '<i class="ri-arrow-right-s-line"></i>';
+				}
+				else if (label == 'start') {
+					buttonElement.innerHTML = '<i class="fas fa-angle-double-left"></i>';
+				}
+				else if (label == 'end') {
+					buttonElement.innerHTML = '<i class="fas fa-angle-double-right"></i>';
+				}
+				else {
+					buttonElement.textContent = label;
+				}
+
+				buttonElement.className = `page-btn ${cls}`;
+				buttonElement.disabled = disabled;
+				buttonElement.addEventListener('click', e => {
+					handleClick(e);
+					this.update();
+					paginationButtonContainer.value = currentPage;
+					viewProducts(currentPage,'');
+					paginationButtonContainer.dispatchEvent(new Event('change'));
+				});
+
+				return buttonElement;
+			}
+
+			const onPageButtonClick = e => currentPage = Number(e.currentTarget.textContent);
+
+			const onPageButtonUpdate = index => (btn) => {
+				btn.textContent = pages[index];
+
+				if (pages[index] === currentPage) {
+					currentPageBtn.classList.remove('active');
+					btn.classList.add('active');
+					currentPageBtn = btn;
+					currentPageBtn.focus();
+				}
+			};
+
+			buttons.set(
+				createAndSetupButton('start', 'start-page', disabled.start(), () => currentPage = 1),
+				(btn) => btn.disabled = disabled.start()
+			)
+
+			buttons.set(
+				createAndSetupButton('prev', 'prev-page', disabled.prev(), () => currentPage -= 1),
+				(btn) => btn.disabled = disabled.prev()
+			)
+
+			pages.map((pageNumber, index) => {
+				const isCurrentPage = currentPage === pageNumber;
+				const button = createAndSetupButton(
+					pageNumber, isCurrentPage ? 'active' : '', false, onPageButtonClick
+				);
+
+				if (isCurrentPage) {
+					currentPageBtn = button;
+				}
+
+				buttons.set(button, onPageButtonUpdate(index));
+			});
+
+			buttons.set(
+				createAndSetupButton('next', 'next-page', disabled.next(), () => currentPage += 1),
+				(btn) => btn.disabled = disabled.next()
+			)
+
+			buttons.set(
+				createAndSetupButton('end', 'end-page', disabled.end(), () => currentPage = totalPages),
+				(btn) => btn.disabled = disabled.end()
+			)
+
+			buttons.forEach((_, btn) => frag.appendChild(btn));
+			paginationButtonContainer.appendChild(frag);
+
+			this.render = (container = document.getElementById("datable_1_paginate")) => {
+				 //remove all existing child nodes from parent node
+                 while (container.firstChild) {
+                    container.removeChild(container.firstChild);
+                }
+				container.appendChild(paginationButtonContainer);
+			}
+
+			this.update = (newPageNumber = currentPage) => {
+				currentPage = newPageNumber;
+				pages = pageNumbers(totalPages, maxPagesVisible, currentPage);
+				buttons.forEach((updateButton, btn) => updateButton(btn));
+			}
+
+			this.onChange = (handler) => {
+				paginationButtonContainer.addEventListener('change', handler);
+			}
+
+		}
+
+		// ********************************************************************************************************
+		var query = ""
+		
+		function getPageCount(query) {
+			// get stock count 
+			$.ajax({
+				url: 'http://app360dev-001-site5.dtempurl.com/api/ECommerce/Admin/EcomProduct/All?nextPage=1&rowCount=12&product='+query,
+				type: 'GET',
+				headers: {
+					Authorization: 'Bearer ' + '<%=current_user.auth.token%>'
+				},
+				success: function (res) {
+					var page_count = Math.ceil(res.content.TotalCount / 12);
+					// //console.log('page_count ' + page_count);
+					if (page_count <= 5) {
+						const paginationButtons = new PaginationButton(page_count, page_count);
+						paginationButtons.render();
+					} else {
+						const paginationButtons = new PaginationButton(page_count, 5);
+						paginationButtons.render();
+					}
+
+				}
+			});
+		}
+		// Pagination End -------------------------------------------------------------------------------------------
+
+		function viewProducts(page) {
+			var proInnerHtml = '';
+
+			$.ajax({
+				url: 'http://app360dev-001-site5.dtempurl.com/api/ECommerce/Admin/EcomProduct/All?nextPage=' + page + '&rowCount=12&product='+query,
+				type: 'GET',
+				headers: {
+					Authorization: 'Bearer ' + '<%=current_user.auth.token%>'
+				},
+				success: function (res) {
+					var proObjects = res.content.List;
+					if (proObjects != null) {
+						proObjects.forEach(product => {
+
+							var custom_styles = ''
+							if(product.isDeletable == true) {
+								custom_styles = 'color: red;'
+							} else {
+								custom_styles = 'color: rgb(180, 180, 179);pointer-events: none;'
+							}
+
+							proInnerHtml = proInnerHtml +
+								'<tr>' +
+								'<td>' + product.ecomProductCode + '</td>' +
+								'<td style="text-transform: capitalize;">' + product.name + '</td>' +
+								'<td>' + product.createdBy + '</td>' +
+								'<td>' +
+								'<% if(' + product.isActive == true + '){ %>' +
+								'<span class="dot-active"></span>' +
+								'<% } else { %>' +
+								'<span class="dot-deactive"></span>' +
+								'<% } %>' +
+								'</td>' +
+								'<td>' +
+								'<div class="d-flex align-items-center">' +
+								'<div class="d-flex" style="padding-left: 90px;">' +
+								'<a class="btn btn-icon btn-flush-dark btn-rounded flush-soft-hover" data-bs-toggle="modal"' +
+								'data-id="' + product.ecomProductCode + '" data-bs-target="#view_info" data-bs-toggle="tooltip"' +
+								'data-placement="top" title="" data-bs-original-title="View" id="openViewModal" href="#">' +
+								'<span class="svg-icon">' +
+								'<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">' +
+								'<path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z" />' +
+								'<path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z" />' +
+								'</svg>' +
+								'</span>' +
+								'</a>' +
+								'<a class="btn btn-icon btn-flush-dark btn-rounded flush-soft-hover" data-bs-toggle="tooltip"' +
+								'data-placement="top" title="" data-bs-original-title="Edit" href="/product/update/' + product.ecomProductCode + '" type="button">' +
+								'<span class="svg-icon">' +
+								'<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit">' +
+								'<path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>' +
+								'<path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>' +
+								'</svg>' +
+								'</span>' +
+								'</a>' +
+								'<a class="btn btn-icon btn-flush-dark btn-rounded flush-soft-hover del-button" data-bs-toggle="modal"' +
+								'style="'+custom_styles+'" data-id="' + product.ecomProductCode + '" data-bs-target="#delete_info"' +
+								'data-bs-toggle="tooltip" data-placement="top" title="" data-bs-original-title="Delete" id="openDeleteModal" href="#">' +
+								'<span class="svg-icon">' +
+								'<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"' +
+								'stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2">' +
+								'<polyline points="3 6 5 6 21 6"></polyline>' +
+								'<path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>' +
+								'<line x1="10" y1="11" x2="10" y2="17"></line>' +
+								'<line x1="14" y1="11" x2="14" y2="17"></line>' +
+								'</svg>' +
+								'</span>' +
+								'</a>' +
+								'</div>' +
+								'</div>' +
+								'</td>' +
+								'</tr>';
+
+						})
+					} else {
+						proInnerHtml = '<center><span style="color:gray; font-size:18px; font-family: Trirong;">' + res.message + ' ...' + '</span></center>';
+					}
+					document.getElementById('proList').innerHTML = proInnerHtml;
+				}
+			})
+		}
+
+		function search() {
+        	const input = document.getElementById("searchInput");
+        	query = input.value.toLowerCase();
+			getPageCount(query)
+    	}
+
+		$(document).ready(function () {
+			const urlParams = new URLSearchParams(window.location.search);
+			const error_msg = urlParams.get('error_msg');
+			const success_msg = urlParams.get('success_msg');
+
+			if (error_msg === 'ERROR: Please fill required field.') {
+				toastr.error(
+					error_msg,
+					'Error',
+					{
+						timeOut: 2000,
+						fadeOut: 2000,
+						onHidden: function () {
+							window.location.href = window.location.pathname;
+						}
+					}
+				);
+			}
+
+			if (success_msg.length > 0) {
+				toastr.success(
+					success_msg,
+					'Success',
+					{
+						timeOut: 2000,
+						fadeOut: 1000,
+						onHidden: function () {
+							window.location.href = window.location.pathname;
+						}
+					}
+				);
+			}
+		});
+
+		// Delete Process
+		$(document).on("click", "#openDeleteModal", function () {
+			var code = $(this).data('id');
+			$(".modal-body #proDeleteCode").val(code);
+			$('#delete_info').modal('show');
+		});
+
+		function clickbtnDelete() {
+			var code = $(".modal-body #proDeleteCode").val();
+			$.ajax({
+				url: 'http://app360dev-001-site5.dtempurl.com/api/ECommerce/Admin/EcomProduct/' + code,
+				type: 'DELETE',
+				headers: {
+					Authorization: 'Bearer ' + '<%=current_user.auth.token%>'
+				},
+				success: function (res) {
+					toastr.success(
+						'This item deleted successfully.',
+						'Success',
+						{
+							timeOut: 2000,
+							fadeOut: 1000,
+							onHidden: function () {
+								window.location.href = window.location.pathname;
+							}
+						}
+					);
+				}
+			})
+		}
+
+		// View Process
+		$(document).on("click", "#openViewModal", function () {
+			var code = $(this).data('id');
+			$.ajax({
+				url: 'http://app360dev-001-site5.dtempurl.com/api/ECommerce/Admin/EcomProduct/' + code,
+				type: 'GET',
+				headers: {
+					Authorization: 'Bearer ' + '<%=current_user.auth.token%>'
+				},
+				success: function (res) {
+					$(".modal-body #code").val(res.content.ecomProductCode);
+					$(".modal-body #name").val(res.content.name);
+					$(".modal-body #generic_name").val(res.content.genericName);
+					$(".modal-body #company_code").val(res.content.productCompanyCode);
+					$(".modal-body #manu_code").val(res.content.manufacturerCode);
+					$(".modal-body #pack_size").val(res.content.packSize);
+					if (res.content.needsPrescription == false) {
+						$(".modal-body #needs_pres").val("No");
+					} else {
+						$(".modal-body #needs_pres").val("Yes");
+					}
+					$(".modal-body #created_date").val(moment.utc(res.content.createdDate).local().format('YYYY-MM-DD HH:mm a'));
+					$(".modal-body #updated_date").val(moment.utc(res.content.updatedBy).local().format('YYYY-MM-DD HH:mm a'));
+
+					var desc = $(".modal-body #desc");
+					desc.empty()
+                    desc.append(res.content.description);  
+
+					$(".modal-body #main_cat").val(res.content.ecomCategoryName);
+					$(".modal-body #cat").val(res.content.ecomSubCategory1Name);
+					$(".modal-body #sub_cat").val(res.content.ecomSubCategory2Name);
+
+					$('#imgDiv img').remove();
+					var images = res.content.imageURLList + " ";
+					for (let i = 1; i < images.length; i++) {
+						if (images.split(',')[i - 1] != undefined) {
+							var img = $('<img />', { src: "https://storage.googleapis.com/products_bucket_1/" + images.split(',')[i - 1], width: 100, height: 100, class: 'img-thumbnail' }).appendTo($('#imgDiv'));
+						}
+					}
+					$('#view_info').modal('show');
+				}
+			})
+		});
+	</script>
+
+	<!-- View Modal -->
+	<div id="view_info" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" style="font-size: 13px;">
+		<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-body">
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+					<h5 class="mb-5">View Product Info</h5>
+					<form>
+						<div class="row gx-3">
+							<div class="col-sm-4 form-group">
+								<label class="form-label">Product Code</label>
+								<input class="form-control" type="text" id="code" readonly style="font-size: 13px;" />
+							</div>
+							<div class="col-sm-4 form-group">
+								<label class="form-label">Product Name</label>
+								<input class="form-control" type="text" id="name" readonly style="font-size: 13px; text-transform: capitalize;" />
+							</div>
+							<div class="col-sm-4 form-group">
+								<label class="form-label">Generic Name</label>
+								<input class="form-control" type="text" id="generic_name" readonly style="font-size: 13px; text-transform: capitalize;" />
+							</div>
+							<div class="col-sm-4 form-group">
+								<label class="form-label">Company Code</label>
+								<input class="form-control" type="text" id="company_code" style="font-size: 13px;"
+									readonly />
+							</div>
+							<div class="col-sm-4 form-group">
+								<label class="form-label">Manufacturer Code</label>
+								<input class="form-control" type="text" id="manu_code" style="font-size: 13px;"
+									readonly />
+							</div>
+							<div class="col-sm-4 form-group">
+								<label class="form-label">Pack Size</label>
+								<input class="form-control" type="text" id="pack_size" readonly
+									style="font-size: 13px;" />
+							</div>
+							<div class="col-sm-4 form-group">
+								<label class="form-label">Needs Prescription</label>
+								<input class="form-control" type="text" id="needs_pres" readonly
+									style="font-size: 13px;" />
+							</div>
+							<div class="col-sm-4 form-group">
+								<label class="form-label">Created Date</label>
+								<input class="form-control" type="text" id="created_date" readonly
+									style="font-size: 13px;" />
+							</div>
+							<div class="col-sm-4 form-group">
+								<label class="form-label">Updated Date</label>
+								<input class="form-control" type="text" id="updated_date" readonly
+									style="font-size: 13px;" />
+							</div>
+							<div class="col-sm-4 form-group">
+								<label class="form-label">Main Category</label>
+								<input class="form-control" type="text" id="main_cat" readonly
+									style="font-size: 13px;" />
+							</div>
+							<div class="col-sm-4 form-group">
+								<label class="form-label">Category</label>
+								<input class="form-control" type="text" id="cat" readonly
+									style="font-size: 13px;" />
+							</div>
+							<div class="col-sm-4 form-group">
+								<label class="form-label">Sub Category</label>
+								<input class="form-control" type="text" id="sub_cat" readonly
+									style="font-size: 13px;" />
+							</div>
+							<div class="col-sm-12 form-group">
+								<label class="form-label">Description</label>
+								<div id="desc" style="border: 1px solid lightgray;
+								border-radius: 5px;
+								padding: 10px;
+								background: #f7f7f7;"></div>
+							</div>
+
+							<div class="col-sm-12 form-group">
+								<label class="form-label">Product Images</label><br>
+								<div id="imgDiv">
+
+								</div>								
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer align-items-center">
+					<button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancel</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /View Modal -->
+
+	<!-- Delete Modal -->
+	<div id="delete_info" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-body">
+					<input type="hidden" name="proDeleteCode" id="proDeleteCode" />
+					<h5 style="text-align: center;">Are you sure you want to delete this product?</h5>
+				</div>
+				<div class="modal-footer align-items-center">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+						style="margin-right: 20px; width: 100px;">Cancel</button>
+					<a href="" type="button" class="btn btn-danger" onclick="clickbtnDelete();"
+						style="margin-right: 120px; width: 100px;" data-bs-dismiss="modal" id="btnDelete">Delete</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /Delete Modal -->
+
+</body>
+
+</html>
